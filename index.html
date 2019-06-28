@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Perfecto - Plastic Surgery</title>
+
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+        <link rel="shortcut icon" href="favicon.ico" type="image/ico">
+
+        <link rel="stylesheet" href="css/font-awesome.min.css">
+        <link rel="stylesheet" href="css/main.css">
+    </head>
+
+    <body>
+        <div id="scene"></div>
+
+        <div id="policy">
+            <div>
+                <iframe src="privacy-policy.html"></iframe>
+                <div id="hide-policy-btn" class="close-btn"></div>
+            </div>
+        </div>
+
+        <div id="social-links">
+            <ul>
+                <li><a href="https://www.facebook.com/" target="_blank"><i class="fa fa-facebook"></i></a></li>
+                <li><a href="https://twitter.com/" target="_blank"><i class="fa fa-twitter"></i></a></li>
+                <li><a href="https://plus.google.com/" target="_blank"><i class="fa fa-google-plus"></i></a></li>
+                <li><a href="https://www.instagram.com/" target="_blank"><i class="fa fa-instagram"></i></a></li>
+            </ul>
+        </div>
+
+        <div id="footer">
+            PERFECTO &copy; 2019
+            <ul id="policy-btns"><li><a id="show-policy-btn" href="privacy-policy.html">Privacy policy</a></li></ul>
+        </div>
+
+        <script src="js/three.min.js"></script>
+
+        <script src="js/main.min.js"></script>
+
+        <script type="text/javascript">
+            var perfecto = new Perfecto.App('scene', 'img/map.png');
+
+            perfecto.setLinks([
+                {"text": "About Us", "url": "about-us.html"},
+                {"text": "New Services", "url": "new-services.html"},
+                {"text": "Our Clients", "url": "our-clients.html"},
+                null,
+                {"text": "Hot Offers", "url": "hot-offers.html"},
+                {"text": "Photo Gallery", "url": "photo-gallery.html"},
+                {"text": "Procedures", "url": "procedures.html"},
+                {"text": "Our Staff", "url": "our-staff.html"},
+                {"text": "Contacts", "url": "contacts.html"}
+            ]);
+
+            // Set logo text and position
+            perfecto.setLogo(3, 'Perfecto.', 'Plastic Surgery');
+        </script>
+    </body>
+</html>
