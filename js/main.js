@@ -2,18 +2,17 @@
 var Perfecto = Perfecto || {};
 Perfecto.App = function(e, t) {
     function n() {
-        TWEEN.update(), o.render(), a.render(), s.render(), requestAnimationFrame(n)
+        TWEEN.update(), a.render(), s.render(), requestAnimationFrame(n)
     }
     var r = document.getElementById(e);
     if (null == r) return this;
     r.style.overflow = "hidden";
     var i = Perfecto.MoveListener.getInstance(),
-        o = new Perfecto.BackgroundRender(r, "back-renderer"),
         a = new Perfecto.GridRender(r, "middle-renderer", t),
         s = new Perfecto.PageRender(r, "front-renderer"),
         c = new Perfecto.PolicyPage;
     n(), window.addEventListener("resize", function() {
-        i.resize(), o.resize(), a.resize(), s.resize(), c.resize()
+        i.resize(), a.resize(), s.resize(), c.resize()
     }), this.setLinks = function(e) {
         a.setLinks(e)
     }, this.setLogo = function(e, t, n, r) {
