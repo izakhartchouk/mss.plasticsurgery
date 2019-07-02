@@ -1,8 +1,47 @@
-﻿@{
+@{
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div id="scene"></div>
+
+<div id="policy">
+    <div>
+        <iframe src="~/html/privacy-policy.html"></iframe>
+        <div id="hide-policy-btn" class="close-btn"></div>
+    </div>
 </div>
+
+<div id="social-links">
+    <ul>
+        <li><a href="https://www.facebook.com/" target="_blank"><i class="fa fa-facebook"></i></a></li>
+        <li><a href="https://twitter.com/" target="_blank"><i class="fa fa-twitter"></i></a></li>
+        <li><a href="https://plus.google.com/" target="_blank"><i class="fa fa-google-plus"></i></a></li>
+        <li><a href="https://www.instagram.com/" target="_blank"><i class="fa fa-instagram"></i></a></li>
+    </ul>
+</div>
+
+<div id="footer">
+    PERFECTO &copy; 2019
+    <ul id="policy-btns"><li><a id="show-policy-btn" href="~/html/privacy-policy.html">Privacy policy</a></li></ul>
+</div>
+
+@section Scripts {
+    <script type="text/javascript">
+        var perfectoApp = new Perfecto.App('scene', 'img/map.png');
+
+        perfectoApp.setLinks([
+            { "text": "About Us", "url": "html/about-us.html" },
+            { "text": "New Services", "url": "html/new-services.html" },
+            { "text": "Our Clients", "url": "html/our-clients.html" },
+            null,
+            { "text": "Hot Offers", "url": "html/hot-offers.html" },
+            { "text": "Photo Gallery", "url": "html/photo-gallery.html" },
+            { "text": "Procedures", "url": "html/procedures.html" },
+            { "text": "Our Staff", "url": "html/our-staff.html" },
+            { "text": "Contacts", "url": "html/contacts.html" }
+        ]);
+
+        // Set logo text and position
+        perfectoApp.setLogo(3, 'Perfecto.', 'Plastic Surgery');
+    </script>
+}
