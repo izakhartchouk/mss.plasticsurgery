@@ -4,6 +4,7 @@ Perfecto.App = function(e, t) {
     function n() {
         TWEEN.update(), a.render(), s.render(), requestAnimationFrame(n)
     }
+
     var r = document.getElementById(e);
     if (null == r) return this;
     r.style.overflow = "hidden";
@@ -11,9 +12,10 @@ Perfecto.App = function(e, t) {
         a = new Perfecto.GridRender(r, "middle-renderer", t),
         s = new Perfecto.PageRender(r, "front-renderer"),
         c = new Perfecto.PolicyPage;
-    n(), window.addEventListener("resize", function() {
-        i.resize(), a.resize(), s.resize(), c.resize()
-    }), this.setLinks = function(e) {
+    n(), window.addEventListener("resize",
+        function() {
+            i.resize(), a.resize(), s.resize(), c.resize()
+        }), this.setLinks = function(e) {
         a.setLinks(e)
     }, this.setLogo = function(e, t, n, r) {
         a.setLogo(e, t, n)
@@ -51,7 +53,8 @@ Perfecto.App = function(e, t) {
 }, Perfecto.createElement = function(e) {
     var t = e.tag || "div",
         n = document.createElement(t);
-    if (Perfecto.addClassMethods(n), e.class && n.addClass(e.class), e.text && n.appendChild(document.createTextNode(e.text)), e.atts) {
+    if (Perfecto.addClassMethods(n), e.class && n.addClass(e.class), e.text
+        && n.appendChild(document.createTextNode(e.text)), e.atts) {
         var r = e.atts;
         Object.keys(r).forEach(function(e) {
             n[e] = r[e]
@@ -63,6 +66,7 @@ Perfecto.App = function(e, t) {
         var n = Perfecto.createElement(e);
         return t.appendChild(n), e.alias && (t[e.alias] = n), n
     }
+
     if (!e || !e.length) return null;
     for (var n = Perfecto.createElement(e[0]), r = n, i = 1, o = e.length; i < o; i++) {
         var a = e[i];
@@ -99,7 +103,13 @@ Perfecto.App = function(e, t) {
     var n = arguments.length;
     if (0 == n) return null;
     var r = null;
-    r = 1 == n ? Array.isArray(e) ? new Perfecto.MultipleTweens(e) : "function" == typeof e ? new Perfecto.TweenMethod(e) : new TWEEN.Tween(e) : new Perfecto.TweenGroup(e, t);
+    r = 1 == n
+        ? Array.isArray(e)
+        ? new Perfecto.MultipleTweens(e)
+        : "function" == typeof e
+        ? new Perfecto.TweenMethod(e)
+        : new TWEEN.Tween(e)
+        : new Perfecto.TweenGroup(e, t);
     var i = ["from", "duration", "add", "queue"],
         o = function() {
             return this
@@ -128,6 +138,7 @@ Perfecto.App = function(e, t) {
             t[n] = e[n]
         }), t
     }
+
     var i = "position",
         o = null,
         a = null,
@@ -184,15 +195,17 @@ Perfecto.App = function(e, t) {
             e.start()
         }), p || t(), this
     }, this.stop = function() {
-        return null != h && (h.forEach(function(e) {
-            e.stop()
-        }), h = null), this
+        return null != h
+            && (h.forEach(function(e) {
+                e.stop()
+            }), h = null), this
     }
 }, Perfecto.TweenMethod = function(e) {
     function t(e) {
         var t = +e;
         return isNaN(t) && (t = +!!e), t
     }
+
     var n = 0,
         r = 0,
         i = 1,
@@ -223,8 +236,9 @@ Perfecto.App = function(e, t) {
         return e(r, n), f = new TWEEN.Tween({
             k: r
         }), f.to({
-            k: i
-        }, a).delay(s).easing(c).onUpdate(function() {
+                k: i
+            },
+            a).delay(s).easing(c).onUpdate(function() {
             e(this.k, n)
         }), null != u && f.onStart(u), null != l && f.onComplete(l), f.start(), this
     }, this.stop = function() {
@@ -243,6 +257,7 @@ Perfecto.App = function(e, t) {
         }
         return n
     }
+
     var i = r(t);
     t = i.length;
     var o = t > 0,
@@ -305,46 +320,50 @@ Perfecto.App = function(e, t) {
         o = new THREE.Scene,
         a = new THREE.PerspectiveCamera(75, r / i, .1, 1e3),
         s = null;
-    s = n && "canvas" == n ? new THREE.CanvasRenderer({
-        alpha: !0
-    }) : new THREE.CSS3DRenderer({
-        alpha: !0
-    }), s.setSize(r, i), s.setClearColor(16777215, 1), Perfecto.addClassMethods(s.domElement), t && s.domElement.addClass(t), e.appendChild(s.domElement), this.render = function() {
-        s.render(o, a)
-    }, this.resize = function() {
-        r = e.clientWidth, i = e.clientHeight, a.aspect = r / i, a.updateProjectionMatrix(), s.setSize(r, i)
-    }, this.resizeCamera = function() {
-        var e;
-        e = r >= i ? Math.min(r, i) : Math.max(r, i);
-        var t = e / 2,
-            n = a.fov / 2,
-            o = t * Perfecto.ctg(n);
-        return a.position.z = o, o
-    }, this.getScene = function() {
-        return o
-    }, this.getCamera = function() {
-        return a
-    }, this.getRenderer = function() {
-        return s
-    }, this.getWidth = function() {
-        return r
-    }, this.getHeight = function() {
-        return i
-    }, this.getLessSide = function() {
-        return Math.min(r, i)
-    }, this.getBiggerSide = function() {
-        return Math.max(r, i)
-    }, this.dispatchEvent = function(t, n) {
-        try {
-            var r = new CustomEvent(t, {
-                detail: n
+    s = n && "canvas" == n
+            ? new THREE.CanvasRenderer({
+                alpha: !0
             })
-        } catch (e) {
-            var r = document.createEvent("CustomEvent");
-            r.initCustomEvent(t, !1, !1, n)
+            : new THREE.CSS3DRenderer({
+                alpha: !0
+            }), s.setSize(r, i), s.setClearColor(16777215, 1), Perfecto.addClassMethods(s.domElement),
+        t && s.domElement.addClass(t), e.appendChild(s.domElement), this.render = function() {
+            s.render(o, a)
+        }, this.resize = function() {
+            r = e.clientWidth, i = e.clientHeight, a.aspect = r / i, a.updateProjectionMatrix(), s.setSize(r, i)
+        }, this.resizeCamera = function() {
+            var e;
+            e = r >= i ? Math.min(r, i) : Math.max(r, i);
+            var t = e / 2,
+                n = a.fov / 2,
+                o = t * Perfecto.ctg(n);
+            return a.position.z = o, o
+        }, this.getScene = function() {
+            return o
+        }, this.getCamera = function() {
+            return a
+        }, this.getRenderer = function() {
+            return s
+        }, this.getWidth = function() {
+            return r
+        }, this.getHeight = function() {
+            return i
+        }, this.getLessSide = function() {
+            return Math.min(r, i)
+        }, this.getBiggerSide = function() {
+            return Math.max(r, i)
+        }, this.dispatchEvent = function(t, n) {
+            try {
+                var r = new CustomEvent(t,
+                    {
+                        detail: n
+                    })
+            } catch (e) {
+                var r = document.createEvent("CustomEvent");
+                r.initCustomEvent(t, !1, !1, n)
+            }
+            e.dispatchEvent(r)
         }
-        e.dispatchEvent(r)
-    }
 }, Perfecto.BackgroundRender = function(e, t) {
     function n() {
         var e = a * (1 + u),
@@ -370,13 +389,19 @@ Perfecto.App = function(e, t) {
     function r(e, t, n, r, i) {
         r = void 0 != r ? THREE.Math.degToRad(r) : 0, i = void 0 != i ? THREE.Math.degToRad(i) : Math.PI / 2;
         for (var o = {
-                color: 12632256,
-                transparent: !0,
-                opacity: .5,
-                program: function(e) {
-                    e.beginPath(), e.arc(0, 0, 1, 0, 2 * Math.PI, !1), e.fill()
-                }
-            }, a = Object.keys(THREE.ColorKeywords), u = a.length, l = [], f = 0; f < e; f++) {
+                     color: 12632256,
+                     transparent: !0,
+                     opacity: .5,
+                     program: function(e) {
+                         e.beginPath(), e.arc(0, 0, 1, 0, 2 * Math.PI, !1), e.fill()
+                     }
+                 },
+            a = Object.keys(THREE.ColorKeywords),
+            u = a.length,
+            l = [],
+            f = 0;
+            f < e;
+            f++) {
             o.color = a[f % u];
             var d = new THREE.SpriteCanvasMaterial(o),
                 h = new THREE.Sprite(d),
@@ -394,6 +419,7 @@ Perfecto.App = function(e, t) {
         var e = new Perfecto.Tween(p);
         e.from(.001, "scale").duration(l).delay(f, d).start()
     }
+
     var o = 294,
         a = 100,
         s = .5,
@@ -425,19 +451,21 @@ Perfecto.App = function(e, t) {
     function o(e) {
         for (var t = [], r = 1; r <= e; r++)
             for (var i = 1; i <= e; i++) {
-                var o = Perfecto.createElements([{
-                        tag: "div",
-                        class: "scene-item",
-                        atts: {
-                            id: "item-" + r + "-" + i
+                var o = Perfecto.createElements([
+                        {
+                            tag: "div",
+                            class: "scene-item",
+                            atts: {
+                                id: "item-" + r + "-" + i
+                            }
+                        }, {
+                            tag: "img",
+                            atts: {
+                                src: n
+                            },
+                            alias: "imageNode"
                         }
-                    }, {
-                        tag: "img",
-                        atts: {
-                            src: n
-                        },
-                        alias: "imageNode"
-                    }]),
+                    ]),
                     a = new THREE.CSS3DObject(o);
                 g.add(a), t.push(a)
             }
@@ -445,11 +473,20 @@ Perfecto.App = function(e, t) {
     }
 
     function a() {
-        for (var e = v.getLessSide(), t = (e - (u - 1) * f) * l, n = Math.floor(t / u), r = n + "px", i = n * u + "px", o = 0, a = 0; a < u; a++)
+        for (var e = v.getLessSide(),
+            t = (e - (u - 1) * f) * l,
+            n = Math.floor(t / u),
+            r = n + "px",
+            i = n * u + "px",
+            o = 0,
+            a = 0;
+            a < u;
+            a++)
             for (var s = 0; s < u; s++, o++) {
                 var c = y[o].element,
                     h = c.imageNode;
-                c.style.width = r, c.style.height = r, h.style.width = i, h.style.height = i, h.style.top = -a * n + "px", h.style.left = -s * n + "px"
+                c.style.width = r, c.style.height = r, h.style.width = i, h.style.height = i, h.style.top =
+                    -a * n + "px", h.style.left = -s * n + "px"
             }
         if (!C) {
             var g = (1 - l) / 2 * e,
@@ -468,7 +505,18 @@ Perfecto.App = function(e, t) {
     }
 
     function s(e) {
-        for (var t = e || 1e3, n = y.length, o = 400, a = Perfecto.arrayFill(n, 0), s = v.getWidth(), c = v.getHeight(), l = new THREE.Vector3(0, -c / 8, 0), f = THREE.Math.degToRad(-75), d = new THREE.Quaternion(Math.sin(f / 2), 0, 0, Math.cos(f / 2)), h = 1; h < u; h++)
+        for (var t = e || 1e3,
+            n = y.length,
+            o = 400,
+            a = Perfecto.arrayFill(n, 0),
+            s = v.getWidth(),
+            c = v.getHeight(),
+            l = new THREE.Vector3(0, -c / 8, 0),
+            f = THREE.Math.degToRad(-75),
+            d = new THREE.Quaternion(Math.sin(f / 2), 0, 0, Math.cos(f / 2)),
+            h = 1;
+            h < u;
+            h++)
             for (var g = 0; g < u; g++) a[h * u + g] = h * o;
         i(), y.forEach(function(e) {
             e.seat = e.position.clone(), e.position.set(-s / 16, c, 0)
@@ -480,7 +528,10 @@ Perfecto.App = function(e, t) {
             var T = THREE.Math.degToRad(Perfecto.random(-45, 45)),
                 C = new THREE.Quaternion(0, 0, Math.sin(T / 2), Math.cos(T / 2)),
                 M = d.clone().multiply(C);
-            p.add(m.position).to(l.clone(), t).delay(o).easing(TWEEN.Easing.Quartic.Out), p.add(m.quaternion).to(M, t).delay(o).easing(TWEEN.Easing.Quartic.Out), E.add(m.position).to(m.seat, t).easing(TWEEN.Easing.Back.Out), E.add(m.rotation).to(new THREE.Vector3(0, 0, 0), t).easing(TWEEN.Easing.Back.Out)
+            p.add(m.position).to(l.clone(), t).delay(o).easing(TWEEN.Easing.Quartic.Out), p.add(m.quaternion).to(M, t)
+                .delay(o)
+                .easing(TWEEN.Easing.Quartic.Out), E.add(m.position).to(m.seat, t).easing(TWEEN.Easing.Back.Out), E
+                .add(m.rotation).to(new THREE.Vector3(0, 0, 0), t).easing(TWEEN.Easing.Back.Out)
         }
         E.onComplete(function() {
             P.enable(), r(), w && w.removeClass("hidden")
@@ -492,12 +543,15 @@ Perfecto.App = function(e, t) {
             for (var t = e.target; t.className.indexOf("scene-item") == -1;)
                 if (t = t.parentNode, t === document.body) return;
             var n = t.getAttribute("data-url");
-            n && v.dispatchEvent("statechange", {
-                state: "loading",
-                url: n
-            })
+            n
+                && v.dispatchEvent("statechange",
+                    {
+                        state: "loading",
+                        url: n
+                    })
         }
     }
+
     var u = 3,
         l = .75,
         f = 9,
@@ -522,10 +576,11 @@ Perfecto.App = function(e, t) {
         C = !1;
     this.resize = function() {
         h.resize(), a(), v.resizeCamera(), m.resize()
-    }, this.resize(), e.addEventListener("statechange", function(e) {
-        var t = e.detail.state;
-        "paused" == t ? P.disable() : "active" == t && P.enable()
-    }), s(), this.render = function() {
+    }, this.resize(), e.addEventListener("statechange",
+        function(e) {
+            var t = e.detail.state;
+            "paused" == t ? P.disable() : "active" == t && P.enable()
+        }), s(), this.render = function() {
         m.update(), h.render()
     }, this.setLinks = function(e) {
         var t = y.length - 1;
@@ -533,39 +588,46 @@ Perfecto.App = function(e, t) {
             var r = e[n];
             if (n = parseInt(n), !(!r || n < 0 || n > t)) {
                 var i = y[n].element;
-                i.hasOwnProperty("hoverNode") ? i.removeChild(i.hoverNode) : i.hasOwnProperty("logoNode") && i.removeChild(i.logoNode);
-                var o = Perfecto.createElements([{
-                    tag: "div",
-                    class: "item-mask"
-                }, {
-                    tag: "span",
-                    class: "link-text",
-                    text: r.text.trim(),
-                    alias: "linkText"
-                }]);
+                i.hasOwnProperty("hoverNode")
+                    ? i.removeChild(i.hoverNode)
+                    : i.hasOwnProperty("logoNode") && i.removeChild(i.logoNode);
+                var o = Perfecto.createElements([
+                    {
+                        tag: "div",
+                        class: "item-mask"
+                    }, {
+                        tag: "span",
+                        class: "link-text",
+                        text: r.text.trim(),
+                        alias: "linkText"
+                    }
+                ]);
                 i.appendChild(o), i.hoverNode = o, i.setAttribute("data-url", r.url), i.addClass("navigation-item")
             }
         }), v.resize()
     }, this.setLogo = function(e, t, n, r) {
         if (t = t || "", n = n || "", r = r || "#", y.length > e) {
-            w = Perfecto.createElements([{
+            w = Perfecto.createElements([
+                {
                     tag: "a",
                     class: "logo-mask hidden",
                     atts: {
                         href: r
                     }
                 },
-                [{
-                    tag: "div",
-                    class: "logo-title",
-                    text: t,
-                    alias: "logoTitle"
-                }, {
-                    tag: "div",
-                    class: "logo-subtitle",
-                    text: n,
-                    alias: "logoSubtitle"
-                }]
+                [
+                    {
+                        tag: "div",
+                        class: "logo-title",
+                        text: t,
+                        alias: "logoTitle"
+                    }, {
+                        tag: "div",
+                        class: "logo-subtitle",
+                        text: n,
+                        alias: "logoSubtitle"
+                    }
+                ]
             ]);
             var i = y[e].element;
             i.hasOwnProperty("hoverNode") && i.removeChild(i.hoverNode), i.appendChild(w), i.logoNode = w
@@ -573,27 +635,38 @@ Perfecto.App = function(e, t) {
     }
 }, Perfecto.PageRender = function(e, t) {
     function n(e) {
-        return e && "#" !== e ? T ? void v.dispatchEvent("statechange", {
-            state: "paused"
-        }) : (p.domElement.style.display = "block", T = !0, C = !1, M = !1, v.dispatchEvent("statechange", {
-            state: "paused"
-        }), s(), v.resizeCamera(), y.pageFrame.src = e, !0) : void v.dispatchEvent("statechange", {
-            state: "active"
-        })
+        return e && "#" !== e
+            ? T
+            ? void v.dispatchEvent("statechange",
+                {
+                    state: "paused"
+                })
+            : (p.domElement.style.display = "block", T = !0, C = !1, M = !1, v.dispatchEvent("statechange",
+                {
+                    state: "paused"
+                }), s(), v.resizeCamera(), y.pageFrame.src = e, !0)
+            : void v.dispatchEvent("statechange",
+                {
+                    state: "active"
+                })
     }
 
     function r() {
         M || (w.show(), M = !0), setTimeout(function() {
-            y.addClass("loaded")
-        }, u)
+                y.addClass("loaded")
+            },
+            u)
     }
 
     function i() {
-        C || (C = !0, y.removeClass("loaded"), w.hide(), setTimeout(function() {
-            p.domElement.style.display = "none", v.dispatchEvent("statechange", {
-                state: "active"
-            }), T = !1
-        }, u + l))
+        C
+            || (C = !0, y.removeClass("loaded"), w.hide(), setTimeout(function() {
+                    p.domElement.style.display = "none", v.dispatchEvent("statechange",
+                        {
+                            state: "active"
+                        }), T = !1
+                },
+                u + l))
     }
 
     function o() {
@@ -614,19 +687,22 @@ Perfecto.App = function(e, t) {
     }
 
     function a() {
-        var e = Perfecto.createElements([{
+        var e = Perfecto.createElements([
+                {
                     tag: "div",
                     class: "page-wrapper"
                 },
-                [{
-                    tag: "iframe",
-                    class: "subpage",
-                    alias: "pageFrame"
-                }, {
-                    tag: "div",
-                    class: "close-btn",
-                    alias: "closeButton"
-                }]
+                [
+                    {
+                        tag: "iframe",
+                        class: "subpage",
+                        alias: "pageFrame"
+                    }, {
+                        tag: "div",
+                        class: "close-btn",
+                        alias: "closeButton"
+                    }
+                ]
             ]),
             t = new THREE.CSS3DObject(e);
         return g.add(t), e
@@ -658,6 +734,7 @@ Perfecto.App = function(e, t) {
             i = r / e;
         i < 1 ? E = Math.round(E / i) : (m = Math.round(m * i), m % 2 != 0 && (m += 1))
     }
+
     var u = 1e3,
         l = 500,
         f = 4,
@@ -680,11 +757,13 @@ Perfecto.App = function(e, t) {
         C = !0,
         M = !1,
         x = !0;
-    e.addEventListener("statechange", function(e) {
-        "loading" == e.detail.state && n(e.detail.url)
-    }), y.pageFrame.addEventListener("load", r), y.closeButton.addEventListener("click", i), this.render = function() {
-        T && h.render()
-    }, this.resize = function() {
+    e.addEventListener("statechange",
+        function(e) {
+            "loading" == e.detail.state && n(e.detail.url)
+        }), y.pageFrame.addEventListener("load", r), y.closeButton.addEventListener("click", i), this.render =
+        function() {
+            T && h.render()
+        }, this.resize = function() {
         h.resize(), x = !0, s()
     }
 }, Perfecto.PolicyPage = function() {
@@ -699,7 +778,15 @@ Perfecto.App = function(e, t) {
     function n() {
         f.enable(), o.style.display = "none"
     }
-    for (var r = 500, i = new Perfecto.Tween(e), o = document.getElementById("policy"), a = null, s = 0, c = o.childNodes.length; s < c && (a = o.childNodes[s], a.nodeType == Node.TEXT_NODE); s++);
+
+    for (var r = 500,
+        i = new Perfecto.Tween(e),
+        o = document.getElementById("policy"),
+        a = null,
+        s = 0,
+        c = o.childNodes.length;
+        s < c && (a = o.childNodes[s], a.nodeType == Node.TEXT_NODE);
+        s++);
     var u = document.getElementById("show-policy-btn"),
         l = document.getElementById("hide-policy-btn"),
         f = Perfecto.MoveListener.getInstance(),
@@ -707,12 +794,17 @@ Perfecto.App = function(e, t) {
     this.resize = function() {
         var e = Perfecto.preferredWidth(window.innerWidth),
             t = Perfecto.preferredHeight(window.innerHeight);
-        a.style.width = e + "px", a.style.height = t + "px", a.style.marginTop = -t / 2 + "px", a.style.marginLeft = -e / 2 + "px"
-    }, this.resize(), u.addEventListener("click", function(e) {
-        e.preventDefault(), d || (i.from(0).to(1, r).easing(TWEEN.Easing.Circular.Out).onStart(t).onComplete(null).start(), d = !0)
-    }), l.addEventListener("click", function(e) {
-        e.preventDefault(), d && (i.from(1).to(0, r).easing(TWEEN.Easing.Circular.In).onStart(null).onComplete(n).start(), d = !1)
-    })
+        a.style.width = e + "px", a.style.height = t + "px", a.style.marginTop = -t / 2 + "px", a.style.marginLeft =
+            -e / 2 + "px"
+    }, this.resize(), u.addEventListener("click",
+        function(e) {
+            e.preventDefault(), d
+                || (i.from(0).to(1, r).easing(TWEEN.Easing.Circular.Out).onStart(t).onComplete(null).start(), d = !0)
+        }), l.addEventListener("click",
+        function(e) {
+            e.preventDefault(), d
+                && (i.from(1).to(0, r).easing(TWEEN.Easing.Circular.In).onStart(null).onComplete(n).start(), d = !1)
+        })
 }, Perfecto.Parallax = function(e, t) {
     function n() {
         s = !0, c = o, g = !0
@@ -725,6 +817,7 @@ Perfecto.App = function(e, t) {
     function i(e, t) {
         f = e, d = t
     }
+
     var o = .05,
         a = 1.125,
         s = !1,
@@ -738,12 +831,15 @@ Perfecto.App = function(e, t) {
         g = !0;
     e.forEach(function(e) {
         e.basePosition = e.position.clone()
-    }), document.addEventListener("mouseleave", r), document.addEventListener("mouseenter", n), Perfecto.MoveListener.getInstance().onDisable(r).onEnable(n).addMoveHandler(i), this.update = function() {
-        g && (s ? (h += (f - h) * c, v += (d - v) * c, c *= a, c >= 1 && (s = !1)) : (h = f, v = d), e.forEach(function(e, n) {
-            var r = u + n / l * t,
-                i = e.basePosition.clone();
-            i.x += h * r, i.y += v * r, e.position.copy(i)
-        }))
+    }), document.addEventListener("mouseleave", r), document.addEventListener("mouseenter", n), Perfecto.MoveListener
+        .getInstance().onDisable(r).onEnable(n).addMoveHandler(i), this.update = function() {
+        g
+            && (s ? (h += (f - h) * c, v += (d - v) * c, c *= a, c >= 1 && (s = !1)) : (h = f, v = d), e.forEach(
+                function(e, n) {
+                    var r = u + n / l * t,
+                        i = e.basePosition.clone();
+                    i.x += h * r, i.y += v * r, e.position.copy(i)
+                }))
     }
 }, Perfecto.ParticlesAnimation = function(e, t, n) {
     function r(e) {
@@ -787,6 +883,7 @@ Perfecto.App = function(e, t) {
         var t = e / (2 * f);
         return t
     }
+
     var c = [],
         u = [],
         l = [],
@@ -817,9 +914,10 @@ Perfecto.App = function(e, t) {
 
     function n(e) {
         var t = arguments.length;
-        if (1 == t) e.forEach(function(e) {
-            e()
-        });
+        if (1 == t)
+            e.forEach(function(e) {
+                e()
+            });
         else {
             for (var n = [], r = 1; r < t; r++) n.push(arguments[r]);
             e.forEach(function(e) {
@@ -827,6 +925,7 @@ Perfecto.App = function(e, t) {
             })
         }
     }
+
     var r = [],
         i = !1,
         o = [],
@@ -840,7 +939,8 @@ Perfecto.App = function(e, t) {
     this.resize = function() {
         u = window.innerWidth / 2, l = window.innerHeight / 2
     }, this.addMoveHandler = function(n) {
-        return i || (document.addEventListener("mousemove", e), document.addEventListener("touchmove", t)), r.push(n), i = !0, this
+        return i || (document.addEventListener("mousemove", e), document.addEventListener("touchmove", t)), r.push(n),
+            i = !0, this
     }, this.onEnable = function(e) {
         return o.push(e), this
     }, this.onDisable = function(e) {
@@ -859,6 +959,7 @@ Perfecto.App = function(e, t) {
     function n(e) {
         i = e
     }
+
     var r = .05,
         i = 0,
         o = 0;
