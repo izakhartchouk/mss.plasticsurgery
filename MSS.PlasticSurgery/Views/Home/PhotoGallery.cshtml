@@ -1,0 +1,37 @@
+@{
+    Layout = "_PageLayout";
+    ViewData["Title"] = "Photo Gallery";
+}
+
+<div class="inner-container">
+    <h3>Before &amp; after photo gallery</h3>
+    <div id="before-and-after" class="carousel slide">
+        <div class="carousel-inner">
+            <div class="active item clearfix">
+                <div class="image-wrapper"><img src="@Url.Content("~/img/gallery/photo1.jpg")" alt="Before" /></div>
+                <div class="image-wrapper"><img src="@Url.Content("~/img/gallery/photo2.jpg")" alt="After" /></div>
+                <div class="image-wrapper"><img src="@Url.Content("~/img/gallery/photo3.jpg")" alt="Before" /></div>
+                <div class="image-wrapper"><img src="@Url.Content("~/img/gallery/photo4.jpg")" alt="After" /></div>
+            </div>
+            <div class="item clearfix">
+                <div class="image-wrapper"><img src="@Url.Content("~/img/gallery/photo1.jpg")" alt="Before" /></div>
+                <div class="image-wrapper"><img src="@Url.Content("~/img/gallery/photo2.jpg")" alt="After" /></div>
+                <div class="image-wrapper"><img src="@Url.Content("~/img/gallery/photo3.jpg")" alt="Before" /></div>
+                <div class="image-wrapper"><img src="@Url.Content("~/img/gallery/photo4.jpg")" alt="After" /></div>
+            </div>
+        </div><!-- End of .carousel-inner -->
+
+        <a class="carousel-control left" href="#before-and-after" data-slide="prev"></a>
+        <a class="carousel-control right" href="#before-and-after" data-slide="next"></a>
+    </div><!-- End of carousel -->
+</div>
+
+@section Scripts {
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script>
+        jQuery('#before-and-after').carousel({
+            "interval": 8000
+        });
+    </script>
+}

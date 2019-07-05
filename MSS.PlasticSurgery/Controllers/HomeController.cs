@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -11,6 +11,46 @@ namespace MSS.PlasticSurgery.Controllers
     public class HomeController : Controller
     {
         public IActionResult Index()
+        {
+            return View();
+        }
+
+        public IActionResult About()
+        {
+            return View();
+        }
+
+        public IActionResult PhotoGallery()
+        {
+            return View();
+        }
+
+        public IActionResult Contacts()
+        {
+            return View();
+        }
+
+        public IActionResult OurClients()
+        {
+            return View();
+        }
+
+        public IActionResult OurStaff()
+        {
+            return View();
+        }
+
+        public IActionResult NewServices()
+        {
+            return View();
+        }
+
+        public IActionResult HotOffers()
+        {
+            return View();
+        }
+
+        public IActionResult Procedures()
         {
             return View();
         }

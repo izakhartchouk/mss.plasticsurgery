@@ -6,7 +6,7 @@
 
 <div id="policy">
     <div>
-        <iframe src="~/html/privacy-policy.html"></iframe>
+        <iframe src="@Url.Action("Privacy","Home")"></iframe>
         <div id="hide-policy-btn" class="close-btn"></div>
     </div>
 </div>
@@ -22,7 +22,7 @@
 
 <div id="footer">
     PERFECTO &copy; 2019
-    <ul id="policy-btns"><li><a id="show-policy-btn" href="~/html/privacy-policy.html">Privacy policy</a></li></ul>
+    <ul id="policy-btns"><li><a id="show-policy-btn" href="@Url.Action("Privacy","Home")">Privacy policy</a></li></ul>
 </div>
 
 @section Scripts {
@@ -30,15 +30,15 @@
         var perfectoApp = new Perfecto.App('scene', 'img/map.png');
 
         perfectoApp.setLinks([
-            { "text": "About Us", "url": "html/about-us.html" },
-            { "text": "New Services", "url": "html/new-services.html" },
-            { "text": "Our Clients", "url": "html/our-clients.html" },
+            { "text": "About Us", "url": "@Url.Action("About", "Home")" },
+            { "text": "New Services", "url": "@Url.Action("NewServices", "Home")" },
+            { "text": "Our Clients", "url": "@Url.Action("OurClients", "Home")" },
             null,
-            { "text": "Hot Offers", "url": "html/hot-offers.html" },
-            { "text": "Photo Gallery", "url": "html/photo-gallery.html" },
-            { "text": "Procedures", "url": "html/procedures.html" },
-            { "text": "Our Staff", "url": "html/our-staff.html" },
-            { "text": "Contacts", "url": "html/contacts.html" }
+            { "text": "Hot Offers", "url": "@Url.Action("HotOffers", "Home")" },
+            { "text": "Photo Gallery", "url": "@Url.Action("PhotoGallery", "Home")" },
+            { "text": "Procedures", "url": "@Url.Action("Procedures", "Home")" },
+            { "text": "Our Staff", "url": "@Url.Action("OurStaff", "Home")" },
+            { "text": "Contacts", "url": "@Url.Action("Contacts", "Home")" }
         ]);
 
         // Set logo text and position
