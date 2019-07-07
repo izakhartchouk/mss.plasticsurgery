@@ -5,15 +5,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>@ViewData["Title"] - MSS.PlasticSurgery</title>
 
-    <link rel="stylesheet" href="@Url.Content("~/lib/font-awesome/font-awesome.min.css")" />
-    <link rel="stylesheet" href="@Url.Content("~/css/main.css")" />
+    <environment names="Development">
+        <link rel="stylesheet" href="@Url.Content("~/lib/font-awesome/font-awesome.min.css")" />
+        <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Open+Sans:300,400,600,700&amp;lang=en" />
+        <link rel="stylesheet" href="@Url.Content("~/css/main.css")" />
+    </environment>
+
+    <environment names="Production">
+        <link rel="stylesheet" href="@Url.Content("~/lib/font-awesome/font-awesome.min.css")" />
+        <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Open+Sans:300,400,600,700&amp;lang=en" />
+        <link rel="stylesheet" href="@Url.Content("~/css/main.css")" />
+        @*<link rel="stylesheet" href="~/view-resources/Views/_Bundles/layout-libs.min.css" asp-append-version="true" />*@
+    </environment>
 </head>
 <body>
+    <div style="font-family: cursive;position: absolute;font-size: 20px;">Environment: @Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")</div>
+
     @RenderBody()
 
-    <script src="~/lib/three/three.min.js"></script>
+    <environment names="Development">
+        <script src="~/lib/three/three.min.js"></script>
 
-    <script src="~/js/main.js" asp-append-version="true"></script>
+        <script src="~/js/main.js" asp-append-version="true"></script>
+    </environment>
+
+    <environment names="Production">
+        <script src="~/lib/three/three.min.js"></script>
+
+        <script src="~/js/main.js" asp-append-version="true"></script>
+        @*<script src="~/view-resources/Views/_Bundles/layout-libs.min.js" asp-append-version="true"></script>*@
+    </environment>
 
     @RenderSection("Scripts", required: false)
 </body>
