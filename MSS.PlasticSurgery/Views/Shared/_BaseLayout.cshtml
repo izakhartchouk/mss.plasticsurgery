@@ -19,7 +19,7 @@
     </environment>
 </head>
 <body>
-    <div style="font-family: cursive;position: absolute;font-size: 20px;">Environment: @Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")</div>
+    <div style="font-family: cursive;position: absolute;font-size: 20px;">Environment: @(Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "Release")</div>
 
     @RenderBody()
 
