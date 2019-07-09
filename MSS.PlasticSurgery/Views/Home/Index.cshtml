@@ -1,4 +1,4 @@
-@{
+﻿@{
     ViewData["Title"] = "Home Page";
 }
 
@@ -30,18 +30,15 @@
         var perfectoApp = new Perfecto.App('scene', 'img/map.png');
 
         perfectoApp.setLinks([
-            { "text": "About Us", "url": "@Url.Action("About", "Home")" },
-            { "text": "New Services", "url": "@Url.Action("NewServices", "Home")" },
-            { "text": "Our Clients", "url": "@Url.Action("OurClients", "Home")" },
-            null,
-            { "text": "Hot Offers", "url": "@Url.Action("HotOffers", "Home")" },
-            { "text": "Photo Gallery", "url": "@Url.Action("PhotoGallery", "Home")" },
-            { "text": "Procedures", "url": "@Url.Action("Procedures", "Home")" },
-            { "text": "Our Staff", "url": "@Url.Action("OurStaff", "Home")" },
-            { "text": "Contacts", "url": "@Url.Action("Contacts", "Home")" }
+            { "text": "Обо мне", "url": "@Url.Action("About", "Home")" },
+            { "text": "Сертификаты", "url": "@Url.Action("NewServices", "Home")" },
+            { "text": "Галерея", "url": "@Url.Action("PhotoGallery", "Home")" },
+            { "text": "Виды операций", "url": "@Url.Action("HotOffers", "Home")" },
+            { "text": "Пациенту до операций", "url": "@Url.Action("OurClients", "Home")" },
+            { "text": "Пациенту после операций", "url": "@Url.Action("Procedures", "Home")" },
+            { "text": "Отзывы", "url": "@Url.Action("OurStaff", "Home")" },
+            { "text": "Контакты", "url": "@Url.Action("Contacts", "Home")" },
+            { "text": "Партнеры", "url": "@Url.Action("Contacts", "Home")" }
         ]);
-
-        // Set logo text and position
-        perfectoApp.setLogo(3, 'MSS', 'Surgeon');
     </script>
 }
