@@ -10,6 +10,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MSS.PlasticSurgery.DataAccess.EntityFrameworkCore;
+using MSS.PlasticSurgery.DataAccess.Repositories;
+using MSS.PlasticSurgery.DataAccess.Repositories.Interfaces;
 
 namespace MSS.PlasticSurgery
 {
@@ -27,6 +29,8 @@ namespace MSS.PlasticSurgery
         {
             services.AddDbContextPool<AppDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultDbConnectionString")));
+
+            services.AddScoped<IUserRepository, UserRepository>();
 
             services.Configure<CookiePolicyOptions>(options =>
             {

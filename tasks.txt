@@ -1,6 +1,7 @@
 * Appearance
 	- remove circles
 	- remove woman photo from tiles
+	- remove pink from tiles
 
 * Functionality
 	- i18n & l10n
@@ -8,7 +9,7 @@
 
 * Admin Page
 	- login page
-	- works management
+	- operations management
 
 =================================================
 
