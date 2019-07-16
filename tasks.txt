@@ -18,3 +18,13 @@
 
 * SEO
 	- [investigate]
+
+- admin page functional: operations, view/delete comments
+- login
+- client area functional: gallery, post comments
+- appearance: remove pink from tiles
+- i18n & l10n
+- hosting: domain name
+- seo: [investigate]
+
+2 weeks
