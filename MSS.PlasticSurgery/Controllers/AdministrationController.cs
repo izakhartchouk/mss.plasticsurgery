@@ -28,8 +28,8 @@ namespace MSS.PlasticSurgery.Controllers
                     Description = "Operation Description 1",
                     Photos = new string[]
                     {
-                        _hostingEnvironment.WebRootFileProvider.GetFileInfo("img/operations/op-1.png")?.PhysicalPath,
-                        _hostingEnvironment.WebRootFileProvider.GetFileInfo("img/operations/op-2.png")?.PhysicalPath
+                        "img/operations/op-1.png",
+                        "img/operations/op-2.png"
                     }
                 },
                 new OperationViewModel()
@@ -39,8 +39,8 @@ namespace MSS.PlasticSurgery.Controllers
                     Description = "Operation Description 2",
                     Photos = new string[]
                     {
-                        _hostingEnvironment.WebRootFileProvider.GetFileInfo("img/operations/op-1.png")?.PhysicalPath,
-                        _hostingEnvironment.WebRootFileProvider.GetFileInfo("img/operations/op-2.png")?.PhysicalPath
+                        "img/operations/op-1.png",
+                        "img/operations/op-2.png"
                     }
                 },
                 new OperationViewModel()
@@ -50,8 +50,8 @@ namespace MSS.PlasticSurgery.Controllers
                     Description = "Operation Description 3",
                     Photos = new string[]
                     {
-                        _hostingEnvironment.WebRootFileProvider.GetFileInfo("img/operations/op-1.png")?.PhysicalPath,
-                        _hostingEnvironment.WebRootFileProvider.GetFileInfo("img/operations/op-2.png")?.PhysicalPath
+                        "img/operations/op-1.png",
+                        "img/operations/op-2.png"
                     }
                 }
             };
@@ -60,6 +60,11 @@ namespace MSS.PlasticSurgery.Controllers
         public IActionResult Index()
         {
             return View();
+        }
+
+        public IActionResult GetOperations()
+        {
+            return PartialView("Shared/_OperationsTabPartial", operationViewModels);
         }
     }
 }

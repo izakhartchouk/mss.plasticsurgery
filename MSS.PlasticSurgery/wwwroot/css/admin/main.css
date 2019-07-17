@@ -7,7 +7,10 @@
  * Licensed under MIT (https://github.com/DashboardPack/architectui-html-theme-free/blob/master/LICENSE)
  =========================================================
  * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
- */.border-primary { border-color: #3f6ad8 }
+ */
+@import '~/'
+
+    .border-primary { border-color: #3f6ad8 }
 
    .border-secondary { border-color: #6c757d }
 
@@ -7147,7 +7150,7 @@
    .app-header__logo .logo-src {
        height: 23px;
        width: 97px;
-       background: url(../img/logo-inverse.png)
+       background: url(../../img/logo-inverse.png)
    }
 
    .app-header__menu, .app-header__mobile-menu {
@@ -7261,7 +7264,7 @@
 
    .app-header.header-text-dark .search-wrapper .close::before, .app-header.header-text-dark .search-wrapper .close::after, .app-header.header-text-dark .search-wrapper .input-holder .search-icon span::before { background: rgba(0, 0, 0, 0.8) }
 
-   .app-header.header-text-dark .app-header__logo .logo-src { background: url(../img/logo-inverse.png) }
+   .app-header.header-text-dark .app-header__logo .logo-src { background: url(../../img/logo-inverse.png) }
 
    .app-sidebar {
        width: 280px;
@@ -11796,8 +11799,8 @@ Copyright (c) 2015 Daniel Eden
        font-family: 'Font Awesome 5 Free';
        font-style: normal;
        font-weight: 900;
-       src: url(../fonts/fa-solid-900.eot);
-       src: url(../fonts/fa-solid-900.eot?#iefix) format("embedded-opentype"), url(../fonts/fa-solid-900.woff2) format("woff2"), url(../fonts/fa-solid-900.woff) format("woff"), url(../fonts/fa-solid-900.ttf) format("truetype"), url(../fonts/fa-solid-900.svg#fontawesome) format("svg")
+       src: url(../../fonts/fa-solid-900.eot);
+       src: url(../../fonts/fa-solid-900.eot?#iefix) format("embedded-opentype"), url(../../fonts/fa-solid-900.woff2) format("woff2"), url(../../fonts/fa-solid-900.woff) format("woff"), url(../../fonts/fa-solid-900.ttf) format("truetype"), url(../../fonts/fa-solid-900.svg#fontawesome) format("svg")
    }
 
    .fa, .fas {
@@ -14628,8 +14631,8 @@ Copyright (c) 2015 Daniel Eden
 
    @font-face {
        font-family: 'Pe-icon-7-stroke';
-       src: url(../fonts/Pe-icon-7-stroke.eot);
-       src: url(../fonts/Pe-icon-7-stroke.eot?#iefixd7yf1v) format("embedded-opentype"), url(../fonts/Pe-icon-7-stroke.woff) format("woff"), url(../fonts/Pe-icon-7-stroke.ttf) format("truetype"), url(../fonts/Pe-icon-7-stroke.svg#Pe-icon-7-stroke) format("svg");
+       src: url(../../fonts/Pe-icon-7-stroke.eot);
+       src: url(../../fonts/Pe-icon-7-stroke.eot?#iefixd7yf1v) format("embedded-opentype"), url(../../fonts/Pe-icon-7-stroke.woff) format("woff"), url(../../fonts/Pe-icon-7-stroke.ttf) format("truetype"), url(../../fonts/Pe-icon-7-stroke.svg#Pe-icon-7-stroke) format("svg");
        font-weight: normal;
        font-style: normal
    }

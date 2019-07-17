@@ -5,7 +5,9 @@ VisualStudioVersion = 15.0.28307.572
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MSS.PlasticSurgery", "MSS.PlasticSurgery\MSS.PlasticSurgery.csproj", "{A8AC5F29-E5AF-41FE-96D0-9EE16E07B998}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MSS.PlasticSurgery.DataAccess", "MSS.PlasticSurgery.DataAccess\MSS.PlasticSurgery.DataAccess.csproj", "{701AABFC-BB27-41B6-88C4-A31FF684C002}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MSS.PlasticSurgery.DataAccess", "MSS.PlasticSurgery.DataAccess\MSS.PlasticSurgery.DataAccess.csproj", "{701AABFC-BB27-41B6-88C4-A31FF684C002}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MSS.PlasticSurgery.Utilities", "MSS.PlasticSurgery.Utilities\MSS.PlasticSurgery.Utilities.csproj", "{A95909CE-BB18-4D64-8185-A76A9A0E6337}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{701AABFC-BB27-41B6-88C4-A31FF684C002}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{701AABFC-BB27-41B6-88C4-A31FF684C002}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{701AABFC-BB27-41B6-88C4-A31FF684C002}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A95909CE-BB18-4D64-8185-A76A9A0E6337}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A95909CE-BB18-4D64-8185-A76A9A0E6337}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A95909CE-BB18-4D64-8185-A76A9A0E6337}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A95909CE-BB18-4D64-8185-A76A9A0E6337}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
