@@ -30,8 +30,7 @@ namespace MSS.PlasticSurgery.Controllers
                     Subtitle = x.Subtitle,
                     Description = x.Description,
                     Images = x.Images.Select(y => y.Path)
-                })
-                .ToList();
+                });
 
             return PartialView("Shared/_OperationsTabPartial", operationViewModels);
         }
