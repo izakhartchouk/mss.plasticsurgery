@@ -1,11 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using MSS.PlasticSurgery.Models;
+using System.Collections.Generic;
 
 namespace MSS.PlasticSurgery.Controllers
 {
@@ -26,10 +22,10 @@ namespace MSS.PlasticSurgery.Controllers
                     Title = "Operation 1",
                     Subtitle = "Operation Subtitle 1",
                     Description = "Operation Description 1",
-                    Photos = new string[]
+                    Images = new string[]
                     {
-                        "img/operations/op-1.png",
-                        "img/operations/op-2.png"
+                        "~/img/operations/op-1.jpg",
+                        "~/img/operations/op-2.jpg"
                     }
                 },
                 new OperationViewModel()
@@ -37,10 +33,10 @@ namespace MSS.PlasticSurgery.Controllers
                     Title = "Operation 2",
                     Subtitle = "Operation Subtitle 2",
                     Description = "Operation Description 2",
-                    Photos = new string[]
+                    Images = new string[]
                     {
-                        "img/operations/op-1.png",
-                        "img/operations/op-2.png"
+                        "~/img/operations/op-1.jpg",
+                        "~/img/operations/op-2.jpg"
                     }
                 },
                 new OperationViewModel()
@@ -48,10 +44,10 @@ namespace MSS.PlasticSurgery.Controllers
                     Title = "Operation 3",
                     Subtitle = "Operation Subtitle 3",
                     Description = "Operation Description 3",
-                    Photos = new string[]
+                    Images = new string[]
                     {
-                        "img/operations/op-1.png",
-                        "img/operations/op-2.png"
+                        "~/img/operations/op-1.jpg",
+                        "~/img/operations/op-2.jpg"
                     }
                 }
             };

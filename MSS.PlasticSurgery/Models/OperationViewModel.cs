@@ -10,6 +10,6 @@ namespace MSS.PlasticSurgery.Models
 
         public string Description { get; set; }
 
-        public IEnumerable<string> Photos { get; set; }
+        public IEnumerable<string> Images { get; set; }
     }
 }

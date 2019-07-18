@@ -26,10 +26,7 @@
                     <button class="btn mr-2 btn-danger">Delete</button>
                 </div>
 
-                @foreach (var imagePath in operation.Photos)
-                {
-                    <img width="100%" src="@Url.Content(imagePath)" alt="Card image cap" class="card-img-bottom">
-                }
+                <img width="100%" src="@Url.Content(operation.Images.First())" alt="Card image cap" class="card-img-bottom">
             </div>
             }
         </div>
