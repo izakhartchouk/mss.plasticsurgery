@@ -8,26 +8,26 @@
 }
 
 <div class="row">
-    @foreach(var operationGroup in operationsGroups)
+    @foreach (var operationGroup in operationsGroups)
     {
         <div class="col-md-4">
             @foreach (var operation in operationGroup)
             {
-            <div class="main-card mb-3 card">
-                <div class="card-header">
-                    @operation.Title
-                </div>
-                <div class="card-body">
-                    <h5 class="card-title">@operation.Subtitle</h5>
-                    @operation.Description
-                </div>
-                <div class="card-footer">
-                    <button class="btn mr-2 btn-secondary">Edit</button>
-                    <button class="btn mr-2 btn-danger">Delete</button>
-                </div>
+                <div class="main-card mb-3 card">
+                    <div class="card-header">
+                        @operation.Title
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">@operation.Subtitle</h5>
+                        @operation.Description
+                    </div>
+                    <div class="card-footer">
+                        <button class="btn mr-2 btn-secondary">Edit</button>
+                        <button class="btn mr-2 btn-danger">Delete</button>
+                    </div>
 
-                <img width="100%" src="@Url.Content(operation.Images.First())" alt="Card image cap" class="card-img-bottom">
-            </div>
+                    <img width="100%" src="@Url.Content(operation.Images.First())" alt="Card image cap" class="card-img-bottom">
+                </div>
             }
         </div>
     }

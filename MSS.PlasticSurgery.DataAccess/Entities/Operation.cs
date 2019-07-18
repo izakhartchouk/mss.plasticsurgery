@@ -17,6 +17,10 @@ namespace MSS.PlasticSurgery.DataAccess.Entities
         [Required]
         public string Title { get; set; }
 
+        [MaxLength(DatabaseConstants.EntityTitleMaxLength)]
+        [Required]
+        public string Subtitle { get; set; }
+
         [MaxLength(DatabaseConstants.NvarcharMaxLength)]
         [Required]
         public string Description { get; set; }

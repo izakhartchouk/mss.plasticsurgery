@@ -23,6 +23,6 @@ namespace MSS.PlasticSurgery.DataAccess.Entities
         [ForeignKey("OperationId")]
         public virtual Operation Operation { get; set; }
 
-        #endregion
+        #endregion Navigation Properties
     }
 }
