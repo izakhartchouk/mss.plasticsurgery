@@ -1,4 +1,4 @@
-@{
+﻿@{
     Layout = "_BaseAdminLayout";
     ViewData["Title"] = "Administration";
 }
@@ -429,9 +429,7 @@
                             </div>
                         </div>
                         <div class="page-title-actions">
-                            <button type="button" data-toggle="tooltip" title="" data-placement="bottom" class="btn-shadow mr-3 btn btn-dark" data-original-title="Example Tooltip">
-                                <i class="fa fa-star"></i>
-                            </button>
+                            <button class="mr-2 btn btn-success" data-toggle="modal" data-target="#operation-modal">Add</button>
                             <div class="d-inline-block dropdown">
                                 <button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="btn-shadow dropdown-toggle btn btn-info">
                                     <span class="btn-icon-wrapper pr-2 opacity-7">
@@ -496,6 +494,52 @@
                 <div class="tab-content">
                     <div class="tab-pane tabs-animation fade show active" id="tab-content-1" role="tabpanel"></div>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="operation-modal" class="modal fade show" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" style="display: none;" aria-modal="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modal-title">Operation Info</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form class="modal-form">
+                    <div class="position-relative row form-group">
+                        <label for="title-field" class="col-sm-2 col-form-label">Title</label>
+                        <div class="col-sm-10">
+                            <input name="Title" id="title-field" type="text" class="form-control">
+                        </div>
+                    </div>
+                    <div class="position-relative row form-group">
+                        <label for="subtitle-field" class="col-sm-2 col-form-label">Subtitle</label>
+                        <div class="col-sm-10">
+                            <input name="Subtitle" id="subtitle-field" type="text" class="form-control">
+                        </div>
+                    </div>
+                    <div class="position-relative row form-group">
+                        <label for="description-field" class="col-sm-2 col-form-label">Description</label>
+                        <div class="col-sm-10">
+                            <textarea name="Description" id="description-field" class="form-control"></textarea>
+                        </div>
+                    </div>
+                    <div class="position-relative row form-group">
+                        <label for="exampleFile" class="col-sm-2 col-form-label">File</label>
+                        <div class="col-sm-10">
+                            <input name="Image" id="exampleFile" type="file" class="form-control-file">
+                            <small class="form-text text-muted">This is some placeholder block-level help text for the above input. It's a bit lighter and easily wraps to a new line.</small>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
             </div>
         </div>
     </div>

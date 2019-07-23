@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using MSS.PlasticSurgery.DataAccess.Entities;
 using MSS.PlasticSurgery.DataAccess.Repositories.Interfaces;
 using MSS.PlasticSurgery.Models;
+using Newtonsoft.Json;
 
 namespace MSS.PlasticSurgery.Controllers
 {
@@ -19,6 +20,12 @@ namespace MSS.PlasticSurgery.Controllers
         public IActionResult Index()
         {
             return View();
+        }
+
+        [HttpPost]
+        public IActionResult CreateOperation(OperationViewModel operation)
+        {
+            return Json(operation);
         }
 
         public IActionResult GetOperations()
