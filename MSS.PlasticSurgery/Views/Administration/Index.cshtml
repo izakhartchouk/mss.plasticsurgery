@@ -1,4 +1,4 @@
-﻿@{
+@{
     Layout = "_BaseAdminLayout";
     ViewData["Title"] = "Administration";
 }
@@ -500,7 +500,7 @@
 </div>
 
 <div id="operation-modal" class="modal fade show" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" style="display: none;" aria-modal="true">
-    <div class="modal-dialog modal-lg">
+    <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="modal-title">Operation Info</h5>
@@ -509,42 +509,123 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form class="modal-form">
+                <form id="modal-form-with-uploader" name="operationInfo">
                     <div class="position-relative row form-group">
-                        <label for="title-field" class="col-sm-2 col-form-label">Title</label>
-                        <div class="col-sm-10">
+                        <label for="title-field" class="col-sm-1 col-form-label">Title</label>
+                        <div class="col-sm-11">
                             <input name="Title" id="title-field" type="text" class="form-control">
                         </div>
                     </div>
                     <div class="position-relative row form-group">
-                        <label for="subtitle-field" class="col-sm-2 col-form-label">Subtitle</label>
-                        <div class="col-sm-10">
+                        <label for="subtitle-field" class="col-sm-1 col-form-label">Subtitle</label>
+                        <div class="col-sm-11">
                             <input name="Subtitle" id="subtitle-field" type="text" class="form-control">
                         </div>
                     </div>
                     <div class="position-relative row form-group">
-                        <label for="description-field" class="col-sm-2 col-form-label">Description</label>
-                        <div class="col-sm-10">
+                        <label for="description-field" class="col-sm-1 col-form-label">Description</label>
+                        <div class="col-sm-11">
                             <textarea name="Description" id="description-field" class="form-control"></textarea>
                         </div>
                     </div>
                     <div class="position-relative row form-group">
-                        <label for="exampleFile" class="col-sm-2 col-form-label">File</label>
-                        <div class="col-sm-10">
-                            <input name="Image" id="exampleFile" type="file" class="form-control-file">
-                            <small class="form-text text-muted">This is some placeholder block-level help text for the above input. It's a bit lighter and easily wraps to a new line.</small>
+                        <label for="images-field" class="col-sm-1 col-form-label">Images</label>
+                        <div class="col-sm-5">
+                            <div id="images-field" class="dm-uploader p-5 text-center">
+                                <h3 class="mb-3 mt-3 text-muted">Drag &amp; Drop Images here</h3>
+                                <div class="btn btn-primary btn-block mb-5">
+                                    <span>Open the file Browser</span>
+                                    <input type="file" title="Click to add Files" multiple="">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="card">
+                                <div class="card-header">
+                                    File List
+                                </div>
+
+                                <ul class="list-unstyled p-2 d-flex flex-column col" id="files">
+                                    <li class="text-muted text-center empty">No files uploaded.</li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+                <button id="modal-form-close" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button id="modal-form-save" type="button" class="btn btn-primary">Save changes</button>
             </div>
         </div>
     </div>
 </div>
 
+<script type="text/html" id="files-template">
+    <li class="media">
+    
+        <img class="mr-3 mb-2 preview-img" src="https://danielmg.org/assets/image/noimage.jpg?v=v10" alt="Generic placeholder image">
+    
+        <div class="media-body mb-1">
+            <p class="mb-2">
+                <strong>%%filename%%</strong> - Status: <span class="text-muted">Waiting</span>
+            </p>
+            <div class="progress mb-2">
+                <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary" 
+                     role="progressbar"
+                     style="width: 0%" 
+                     aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+                </div>
+            </div>
+      
+            <hr class="mt-1 mb-1" />
+        </div>
+    </li>
+</script>
+
 @section Scripts {
     <script src="@Url.Content("~/js/admin/index.js")" asp-append-version="true"></script>
 }
+
+<style>
+    #images-field {
+        border: 0.25rem dashed #A5A5C7;
+    }
+
+    .progress {
+        height: 1.5rem;
+    }
+
+    #files {
+        overflow-y: scroll !important;
+        min-height: 210px;
+    }
+
+    /* These are for the single examle */
+    .preview-img {
+        width: 64px;
+        height: 64px;
+    }
+
+    form {
+        border: solid #f7f7f9 !important;
+        padding: 1.5rem
+    }
+
+    form.active {
+        border-color: red !important;
+    }
+
+    form .progress {
+        height: 38px;
+    }
+
+    .dm-uploader {
+        border: 0.25rem dashed #A5A5C7;
+    }
+
+    .dm-uploader.active {
+        border-color: red;
+        border-style: solid;
+    }
+</style>

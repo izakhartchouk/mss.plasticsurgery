@@ -9,7 +9,7 @@ namespace MSS.PlasticSurgery.DataAccess.Entities
     [Table("Operations")]
     public class Operation : IEntity<int>
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]
         public int Id { get; set; }
 

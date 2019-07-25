@@ -7,7 +7,7 @@ namespace MSS.PlasticSurgery.DataAccess.Entities
     [Table("Users")]
     public class User : IdentityUser<int>, IEntity<int>
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public override int Id { get; set; }
     }
 }

@@ -9,7 +9,7 @@ namespace MSS.PlasticSurgery.DataAccess.Entities
     [Table("Comments")]
     public class Comment : IEntity<int>
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]
         public int Id { get; set; }
 

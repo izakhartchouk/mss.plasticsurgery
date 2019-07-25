@@ -13,10 +13,13 @@
 
     <environment names="Development">
         <link rel="stylesheet" href="@Url.Content("~/css/admin/main.css")" />
+        <link rel="stylesheet" href="@Url.Content("~/lib/jquery-ajax-uploader/src/css/jquery.dm-uploader.css")" />
     </environment>
 
     <environment names="Production">
         <link rel="stylesheet" href="@Url.Content("~/css/admin/main.css")" />
+        <link rel="stylesheet" href="@Url.Content("~/lib/jquery-ajax-uploader/dist/css/jquery.dm-uploader.min.css")" />
+
         @*<link rel="stylesheet" href="~/view-resources/Views/_Bundles/layout-libs.min.css" asp-append-version="true" />*@
     </environment>
 </head>
@@ -27,12 +30,19 @@
         <script src="@Url.Content("~/lib/jquery/dist/jquery.js")" asp-append-version="true"></script>
         <script src="@Url.Content("~/js/admin/main.js")" asp-append-version="true"></script>
         <script src="@Url.Content("~/lib/bootstrap/dist/js/bootstrap.js")" asp-append-version="true"></script>
+        <script src="@Url.Content("~/lib/jquery-ajax-uploader/src/js/jquery.dm-uploader.js")" asp-append-version="true"></script>
+
+        <script src="@Url.Content("~/js/utils/utils.js")" asp-append-version="true"></script>
     </environment>
 
     <environment names="Production">
         <script src="@Url.Content("~/lib/jquery/dist/jquery.js")" asp-append-version="true"></script>
         <script src="@Url.Content("~/js/admin/main.js")" asp-append-version="true"></script>
         <script src="@Url.Content("~/lib/bootstrap/dist/js/bootstrap.min.js")" asp-append-version="true"></script>
+        <script src="@Url.Content("~/lib/jquery-ajax-uploader/dist/js/jquery.dm-uploader.min.js")" asp-append-version="true"></script>
+
+        <script src="@Url.Content("~/js/utils/utils.js")" asp-append-version="true"></script>
+
         @*<script src="~/view-resources/Views/_Bundles/layout-libs.min.js" asp-append-version="true"></script>*@
     </environment>
 

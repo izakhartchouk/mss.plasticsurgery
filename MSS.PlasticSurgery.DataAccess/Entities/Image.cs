@@ -8,7 +8,7 @@ namespace MSS.PlasticSurgery.DataAccess.Entities
     [Table("Images")]
     public class Image : IEntity<int>
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]
         public int Id { get; set; }
 
