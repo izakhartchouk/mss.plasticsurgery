@@ -3,15 +3,17 @@
 
     var $operationsTab = $('#tab-content-1');
     var $operationModal = $('#operation-modal');
-    var $modalFormWithUploader = $('#modal-form-with-uploader');
+    var $modalFormWithUploader = $('#modal-form-with-uploader', $operationModal);
     var $uploader = $('#images-field', $modalFormWithUploader);
+    var $modalFormSaveButton = $('#modal-form-save', $operationModal);
+    var $modalFormCloseButton = $('#modal-form-close', $operationModal);
 
     var formData = {
         Images: []
     };
 
     $(document).ready(function () {
-        $operationsTab.load('/Administration/GetOperations');
+        updateOperationsTab();
 
         $uploader.dmUploader({
             auto: true,
@@ -92,7 +94,7 @@
         });
     });
 
-    $operationModal.on('show.bs.modal', function(event) {
+    $operationModal.on('show.bs.modal', function (event) {
         console.log('BS EVENT: show.bs.modal');
     });
 
@@ -105,7 +107,7 @@
         $uploader.dmUploader('reset');
     });
 
-    $('#modal-form-save', $operationModal).on('click', function(event) {
+    $modalFormSaveButton.on('click', function(event) {
         $.extend(formData, $modalFormWithUploader.serializeToObject());
 
         $.ajax({
@@ -115,10 +117,18 @@
             contentType: 'application/x-www-form-urlencoded; charset=utf-8',
             data: formData,
             success: function (result) {
-                console.log(result);
+                updateOperationsTab();
             }
         });
     });
+
+    $('.delete-operation-button').on('click', function (event) {
+
+    });
+
+    function updateOperationsTab() {
+        $operationsTab.load('/Administration/GetOperations');
+    }
 
     // Creates a new file and add it to our list
     function uiMultiAddFile(id, file) {

@@ -1,4 +1,5 @@
 ﻿using System;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace MSS.PlasticSurgery.DataAccess.Migrations
@@ -11,7 +12,8 @@ namespace MSS.PlasticSurgery.DataAccess.Migrations
                 name: "Comments",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     AuthorName = table.Column<string>(maxLength: 256, nullable: false),
                     Description = table.Column<string>(maxLength: 512, nullable: false),
                     CreatedAt = table.Column<DateTime>(nullable: false)
@@ -25,7 +27,8 @@ namespace MSS.PlasticSurgery.DataAccess.Migrations
                 name: "Operations",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Title = table.Column<string>(maxLength: 512, nullable: false),
                     Subtitle = table.Column<string>(maxLength: 512, nullable: false),
                     Description = table.Column<string>(maxLength: 2147483647, nullable: false)
@@ -39,7 +42,8 @@ namespace MSS.PlasticSurgery.DataAccess.Migrations
                 name: "Users",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     UserName = table.Column<string>(nullable: true),
                     NormalizedUserName = table.Column<string>(nullable: true),
                     Email = table.Column<string>(nullable: true),
@@ -64,7 +68,8 @@ namespace MSS.PlasticSurgery.DataAccess.Migrations
                 name: "Images",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Path = table.Column<string>(maxLength: 2147483647, nullable: false),
                     OperationId = table.Column<int>(nullable: false)
                 },

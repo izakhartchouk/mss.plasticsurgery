@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -13,8 +12,6 @@ namespace MSS.PlasticSurgery.Controllers
 {
     public class AdministrationController : Controller
     {
-        private const string TemporaryUploadedFilePathConstant = "TemporaryUploadedFilePaths";
-
         private readonly IGenericRepository<Operation, int> _operationRepository;
         private readonly IHostingEnvironment _hostingEnvironment;
 
@@ -38,16 +35,18 @@ namespace MSS.PlasticSurgery.Controllers
             {
                 Title = operation.Title,
                 Subtitle = operation.Subtitle,
-                Description = operation.Description,
-                Images = operation.Images.Select(x => new Image()
-                {
-                    Path = x
-                }).ToArray()
+                Description = operation.Description
             };
+
+            operationDto.Images = operation.Images.Select(filePath => new Image()
+            {
+                Operation = operationDto,
+                Path = filePath
+            }).ToArray();
 
             _operationRepository.Create(operationDto);
 
-            return Ok("success");
+            return Json("success");
         }
 
         public IActionResult GetOperations()
@@ -67,7 +66,11 @@ namespace MSS.PlasticSurgery.Controllers
         [HttpPost]
         public async Task<IActionResult> UploadFile(IFormFile file)
         {
-            var uploadPath = Path.Combine(_hostingEnvironment.WebRootPath, "img\\operations", Path.GetRandomFileName());
+            var fileExtension = Path.GetExtension(file.FileName);
+            var randomFileName = Path.GetRandomFileName();
+            randomFileName = Path.ChangeExtension(randomFileName, fileExtension);
+            var uploadPath = Path.Combine(_hostingEnvironment.WebRootPath, "img\\operations", randomFileName);
+            var relativePath = $"/img/operations/{randomFileName}";
 
             if (file.Length > 0)
             {
@@ -80,42 +83,8 @@ namespace MSS.PlasticSurgery.Controllers
             return Ok(new
             {
                 size = file.Length,
-                filePath = uploadPath
+                filePath = relativePath
             });
-        }
-
-        private void AddFilePathToCache(string filePath)
-        {
-            var temporaryUploadedFilePaths = new List<string>();
-
-            if (TempData.Keys.Contains(TemporaryUploadedFilePathConstant))
-            {
-                temporaryUploadedFilePaths = (List<string>)TempData[TemporaryUploadedFilePathConstant];
-                temporaryUploadedFilePaths.Add(filePath);
-                TempData[TemporaryUploadedFilePathConstant] = temporaryUploadedFilePaths.ToList();
-            }
-            else
-            {
-                temporaryUploadedFilePaths.Add(filePath);
-                TempData[TemporaryUploadedFilePathConstant] = temporaryUploadedFilePaths.ToList();
-            }
-        }
-
-        private IEnumerable<string> GetAllFilePathsFromCache()
-        {
-            if (TempData.Keys.Contains(TemporaryUploadedFilePathConstant))
-            {
-                return (IEnumerable<string>) TempData[TemporaryUploadedFilePathConstant];
-            }
-            else
-            {
-                return Enumerable.Empty<string>();
-            }
-        }
-
-        private void ClearFilePathsCache()
-        {
-            TempData.Remove(TemporaryUploadedFilePathConstant);
         }
     }
 }

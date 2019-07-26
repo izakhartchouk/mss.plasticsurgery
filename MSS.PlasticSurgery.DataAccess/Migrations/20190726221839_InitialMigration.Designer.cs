@@ -10,20 +10,22 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MSS.PlasticSurgery.DataAccess.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20190718201044_InitialMigration")]
+    [Migration("20190726221839_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.2.4-servicing-10062")
+                .HasAnnotation("ProductVersion", "2.2.6-servicing-10079")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("MSS.PlasticSurgery.DataAccess.Entities.Comment", b =>
                 {
-                    b.Property<int>("Id");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("AuthorName")
                         .IsRequired()
@@ -42,7 +44,9 @@ namespace MSS.PlasticSurgery.DataAccess.Migrations
 
             modelBuilder.Entity("MSS.PlasticSurgery.DataAccess.Entities.Image", b =>
                 {
-                    b.Property<int>("Id");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("OperationId");
 
@@ -59,7 +63,9 @@ namespace MSS.PlasticSurgery.DataAccess.Migrations
 
             modelBuilder.Entity("MSS.PlasticSurgery.DataAccess.Entities.Operation", b =>
                 {
-                    b.Property<int>("Id");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -80,7 +86,9 @@ namespace MSS.PlasticSurgery.DataAccess.Migrations
 
             modelBuilder.Entity("MSS.PlasticSurgery.DataAccess.Entities.User", b =>
                 {
-                    b.Property<int>("Id");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("AccessFailedCount");
 
