@@ -65,6 +65,23 @@ namespace MSS.PlasticSurgery.Controllers
             return PartialView("Shared/_OperationsTabPartial", operationViewModels);
         }
 
+        [HttpPost]
+        public IActionResult GetOperation([FromBody] string operationId)
+        {
+            var operationEntity = _operationRepository.GetById(int.Parse(operationId));
+
+            var operationViewModel = new OperationViewModel()
+            {
+                Id = operationEntity.Id,
+                Title = operationEntity.Title,
+                Subtitle = operationEntity.Subtitle,
+                Description = operationEntity.Description,
+                Images = operationEntity.Images.Select(x => x.Path)
+            };
+
+            return Json(operationViewModel);
+        }
+
         public IActionResult UpdateOperation(OperationViewModel operation)
         {
             return Json("success");

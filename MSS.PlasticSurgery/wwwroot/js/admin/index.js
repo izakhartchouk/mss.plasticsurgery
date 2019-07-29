@@ -105,6 +105,7 @@
 
         uiMultiResetFileList();
         $uploader.dmUploader('reset');
+        formData.Images.length = 0;
     });
 
     $modalFormSaveButton.on('click', function(event) {
@@ -118,8 +119,38 @@
             data: formData,
             success: function (result) {
                 updateOperationsTab();
+                formData.Images.length = 0;
             }
         });
+    });
+
+    $(document).on('click', '.edit-operation-button', function (event) {
+        var operationId = $(event.target).attr('data-operation-id');
+
+        $.ajax({
+            type: 'POST',
+            url: '/Administration/GetOperation',
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            data: operationId,
+            success: function (result) {
+                setFormWithData(result);
+
+                $operationModal.modal('show');
+            }
+        });
+
+        function setFormWithData (data) {
+            $('#title-field', $modalFormWithUploader).val(data.title);
+            $('#subtitle-field', $modalFormWithUploader).val(data.subtitle);
+            $('#description-field', $modalFormWithUploader).val(data.description);
+
+            $.each(data.images, function (index, filePath) {
+                uiMultiAddFile(index, { name: filePath }, filePath);
+                uiMultiUpdateFileStatus(index, 'success', 'Upload Complete');
+                uiMultiUpdateFileProgress(index, 100, 'success', false);
+            });
+        }
     });
 
     $(document).on('click', '.delete-operation-button', function (event) {
@@ -142,7 +173,7 @@
     }
 
     // Creates a new file and add it to our list
-    function uiMultiAddFile(id, file) {
+    function uiMultiAddFile(id, file, src) {
         var template = $('#files-template').text();
         template = template.replace('%%filename%%', file.name);
 
@@ -152,6 +183,10 @@
 
         $('#files').find('li.empty').fadeOut(); // remove the 'no files yet'
         $('#files').prepend(template);
+
+        if (src) {
+            $('#uploaderFile' + id, '#files').find('img').attr('src', src);
+        }
     }
 
     function uiMultiResetFileList() {
