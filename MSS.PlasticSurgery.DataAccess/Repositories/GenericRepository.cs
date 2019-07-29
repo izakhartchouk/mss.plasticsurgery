@@ -58,6 +58,7 @@ namespace MSS.PlasticSurgery.DataAccess.Repositories
             }
 
             _dbSet.Remove(entity);
+            _appDbContext.SaveChanges();
         }
 
         public void Delete(TEntity item)

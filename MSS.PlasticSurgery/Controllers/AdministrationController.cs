@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using MSS.PlasticSurgery.DataAccess.Entities;
 using MSS.PlasticSurgery.DataAccess.Repositories.Interfaces;
 using MSS.PlasticSurgery.Models;
+using MSS.PlasticSurgery.Utilities;
 
 namespace MSS.PlasticSurgery.Controllers
 {
@@ -54,6 +55,7 @@ namespace MSS.PlasticSurgery.Controllers
             var operationViewModels = _operationRepository.GetAll()
                 .Select(x => new OperationViewModel()
                 {
+                    Id = x.Id,
                     Title = x.Title,
                     Subtitle = x.Subtitle,
                     Description = x.Description,
@@ -63,14 +65,37 @@ namespace MSS.PlasticSurgery.Controllers
             return PartialView("Shared/_OperationsTabPartial", operationViewModels);
         }
 
+        public IActionResult UpdateOperation(OperationViewModel operation)
+        {
+            return Json("success");
+        }
+
+        [HttpPost]
+        public IActionResult DeleteOperation([FromBody] string operationId)
+        {
+            var targetOperationId = int.Parse(operationId);
+
+            Operation operationEntity = _operationRepository.GetById(targetOperationId);
+
+            foreach (var relativeFilePath in operationEntity.Images.Select(x => x.Path))
+            {
+                string serverFilePath = _hostingEnvironment.GenerateServerFilePath(relativeFilePath);
+
+                if (System.IO.File.Exists(serverFilePath))
+                {
+                    System.IO.File.Delete(serverFilePath);
+                }
+            }
+
+            _operationRepository.Delete(targetOperationId);
+
+            return Json("success");
+        }
+
         [HttpPost]
         public async Task<IActionResult> UploadFile(IFormFile file)
         {
-            var fileExtension = Path.GetExtension(file.FileName);
-            var randomFileName = Path.GetRandomFileName();
-            randomFileName = Path.ChangeExtension(randomFileName, fileExtension);
-            var uploadPath = Path.Combine(_hostingEnvironment.WebRootPath, "img\\operations", randomFileName);
-            var relativePath = $"/img/operations/{randomFileName}";
+            var uploadPath = _hostingEnvironment.GetFilePathForStoring(file, out var relativePath);
 
             if (file.Length > 0)
             {

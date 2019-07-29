@@ -122,8 +122,19 @@
         });
     });
 
-    $('.delete-operation-button').on('click', function (event) {
+    $(document).on('click', '.delete-operation-button', function (event) {
+        var operationId = $(event.target).attr('data-operation-id');
 
+        $.ajax({
+            type: 'POST',
+            url: '/Administration/DeleteOperation',
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            data: operationId,
+            success: function (result) {
+                updateOperationsTab();
+            }
+        });
     });
 
     function updateOperationsTab() {
