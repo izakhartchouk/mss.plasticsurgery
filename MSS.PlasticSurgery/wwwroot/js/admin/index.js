@@ -8,9 +8,10 @@
     var $modalFormSaveButton = $('#modal-form-save', $operationModal);
     var $modalFormCloseButton = $('#modal-form-close', $operationModal);
 
-    var formData = {
+    var pendingFormData = {
         Images: []
     };
+    var actionType = 'discard';
 
     $(document).ready(function () {
         updateOperationsTab();
@@ -40,7 +41,6 @@
             },
             onNewFile: function (id, file) {
                 // When a new file is added using the file selector or the DnD area
-                console.log('New file added #' + id);
                 uiMultiAddFile(id, file);
 
                 if (typeof FileReader !== "undefined") {
@@ -56,7 +56,6 @@
             },
             onBeforeUpload: function (id) {
                 // about tho start uploading a file
-                console.log('Starting the upload of #' + id);
                 uiMultiUpdateFileProgress(id, 0, '', true);
                 uiMultiUpdateFileStatus(id, 'uploading', 'Uploading...');
             },
@@ -66,10 +65,8 @@
             },
             onUploadSuccess: function (id, data) {
                 // A file was successfully uploaded
-                console.log('Server Response for file #' + id + ': ' + JSON.stringify(data));
-                console.log('Upload of file #' + id + ' COMPLETED');
-
-                formData.Images.push(data.filePath);
+                pendingFormData.Images.push(data.filePath);
+                uiMultiSetFilePath(id, data.filePath);
 
                 uiMultiUpdateFileStatus(id, 'success', 'Upload Complete');
                 uiMultiUpdateFileProgress(id, 100, 'success', false);
@@ -94,32 +91,41 @@
         });
     });
 
-    $operationModal.on('show.bs.modal', function (event) {
-        console.log('BS EVENT: show.bs.modal');
-    });
-
-    $operationModal.on('hidden.bs.modal', function (event) {
-        console.log('BS EVENT: hidden.bs.modal');
+    $operationModal.on('hide.bs.modal', function (event) {
+        if (pendingFormData.Images.length > 0 && actionType !== 'create') {
+            $.ajax({
+                type: 'POST',
+                url: '/Administration/DiscardFiles',
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify(pendingFormData.Images),
+                success: function (result) {
+                    actionType = 'discard';
+                }
+            });
+        }
 
         $modalFormWithUploader.trigger('reset');
-
         uiMultiResetFileList();
         $uploader.dmUploader('reset');
-        formData.Images.length = 0;
+        pendingFormData.Images.length = 0;
     });
 
     $modalFormSaveButton.on('click', function(event) {
-        $.extend(formData, $modalFormWithUploader.serializeToObject());
+        $.extend(pendingFormData, $modalFormWithUploader.serializeToObject());
 
         $.ajax({
             type: 'POST',
             url: '/Administration/CreateOperation',
             dataType: 'json',
             contentType: 'application/x-www-form-urlencoded; charset=utf-8',
-            data: formData,
+            data: pendingFormData,
             success: function (result) {
                 updateOperationsTab();
-                formData.Images.length = 0;
+
+                actionType = 'create';
+                $operationModal.modal('hide');
+                $('.modal-backdrop').remove();
             }
         });
     });
@@ -134,19 +140,19 @@
             contentType: 'application/json; charset=utf-8',
             data: operationId,
             success: function (result) {
-                setFormWithData(result);
-
+                populateFormWithData(result);
                 $operationModal.modal('show');
             }
         });
 
-        function setFormWithData (data) {
+        function populateFormWithData (data) {
             $('#title-field', $modalFormWithUploader).val(data.title);
             $('#subtitle-field', $modalFormWithUploader).val(data.subtitle);
             $('#description-field', $modalFormWithUploader).val(data.description);
 
             $.each(data.images, function (index, filePath) {
                 uiMultiAddFile(index, { name: filePath }, filePath);
+                uiMultiSetFilePath(index, filePath);
                 uiMultiUpdateFileStatus(index, 'success', 'Upload Complete');
                 uiMultiUpdateFileProgress(index, 100, 'success', false);
             });
@@ -177,15 +183,49 @@
         var template = $('#files-template').text();
         template = template.replace('%%filename%%', file.name);
 
+        var uploaderFileId = 'uploaderFile' + id;
         template = $(template);
-        template.prop('id', 'uploaderFile' + id);
+        template.prop('id', uploaderFileId);
         template.data('file-id', id);
 
         $('#files').find('li.empty').fadeOut(); // remove the 'no files yet'
         $('#files').prepend(template);
 
+        $('#files ' + '#' + uploaderFileId).on('click', '.close', function (event) {
+            var $li = $(event.target).closest('.media');
+            var fileId = $li.attr('id');
+            var filePaths = [];
+            var filePath = $li.data('file-path');
+            filePaths.push(filePath);
+
+            $.ajax({
+                type: 'POST',
+                url: '/Administration/DiscardFiles',
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify(filePaths),
+                success: function (result) {
+                    var index = pendingFormData.Images.indexOf(filePath);
+                    pendingFormData.Images.splice(index, 1);
+                    uiMultiRemoveFile(fileId);
+                }
+            });
+        });
+
         if (src) {
             $('#uploaderFile' + id, '#files').find('img').attr('src', src);
+        }
+    }
+
+    function uiMultiSetFilePath(id, filePath) {
+        $('#uploaderFile' + id, '#files').data('file-path', filePath);
+    }
+
+    function uiMultiRemoveFile (id) {
+        $('#' + id, '#files').remove();
+
+        if ($('#files').find('li:not(.empty)').length === 0) {
+            $('#files').find('li.empty').fadeIn();
         }
     }
 
@@ -196,7 +236,7 @@
 
     // Changes the status messages on our list
     function uiMultiUpdateFileStatus(id, status, message) {
-        $('#uploaderFile' + id).find('span').html(message).prop('class', 'status text-' + status);
+        $('#uploaderFile' + id).find('span[data-id="status-label"]').html(message).prop('class', 'status text-' + status);
     }
 
     // Updates a file progress, depending on the parameters it may animate it or change the color.

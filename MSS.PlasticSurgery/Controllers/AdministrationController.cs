@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -91,19 +92,8 @@ namespace MSS.PlasticSurgery.Controllers
         public IActionResult DeleteOperation([FromBody] string operationId)
         {
             var targetOperationId = int.Parse(operationId);
-
             Operation operationEntity = _operationRepository.GetById(targetOperationId);
-
-            foreach (var relativeFilePath in operationEntity.Images.Select(x => x.Path))
-            {
-                string serverFilePath = _hostingEnvironment.GenerateServerFilePath(relativeFilePath);
-
-                if (System.IO.File.Exists(serverFilePath))
-                {
-                    System.IO.File.Delete(serverFilePath);
-                }
-            }
-
+            DeleteFiles(operationEntity.Images.Select(x => x.Path));
             _operationRepository.Delete(targetOperationId);
 
             return Json("success");
@@ -127,6 +117,30 @@ namespace MSS.PlasticSurgery.Controllers
                 size = file.Length,
                 filePath = relativePath
             });
+        }
+
+        [HttpPost]
+        public IActionResult DiscardFiles([FromBody] IEnumerable<string> filePaths)
+        {
+            DeleteFiles(filePaths);
+
+            return Ok(new
+            {
+                message = "success"
+            });
+        }
+
+        private void DeleteFiles(IEnumerable<string> relativeFilePaths)
+        {
+            foreach (var relativeFilePath in relativeFilePaths)
+            {
+                string serverFilePath = _hostingEnvironment.GenerateServerFilePath(relativeFilePath);
+
+                if (System.IO.File.Exists(serverFilePath))
+                {
+                    System.IO.File.Delete(serverFilePath);
+                }
+            }
         }
     }
 }

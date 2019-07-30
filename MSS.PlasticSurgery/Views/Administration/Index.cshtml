@@ -555,7 +555,7 @@
             </div>
             <div class="modal-footer">
                 <button id="modal-form-close" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button id="modal-form-save" type="button" class="btn btn-primary" data-dismiss="modal">Save changes</button>
+                <button id="modal-form-save" type="button" class="btn btn-primary">Save changes</button>
             </div>
         </div>
     </div>
@@ -563,28 +563,37 @@
 
 <script type="text/html" id="files-template">
     <li class="media">
-    
+
         <img class="mr-3 mb-2 preview-img" src="https://danielmg.org/assets/image/noimage.jpg?v=v10" alt="Generic placeholder image">
-    
+
         <div class="media-body mb-1">
             <p class="mb-2">
-                <strong>%%filename%%</strong> - Status: <span class="text-muted">Waiting</span>
+                <strong>%%filename%%</strong> - Status: <span class="text-muted" data-id="status-label">Waiting</span>
+                <button type="button" class="close">
+                    <span aria-hidden="true">×</span>
+                </button>
             </p>
             <div class="progress mb-2">
-                <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary" 
+                <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary"
                      role="progressbar"
-                     style="width: 0%" 
+                     style="width: 0%"
                      aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
                 </div>
             </div>
-      
+
             <hr class="mt-1 mb-1" />
         </div>
     </li>
 </script>
 
 @section Scripts {
-    <script src="@Url.Content("~/js/admin/index.js")" asp-append-version="true"></script>
+    <environment names="Development">
+        <script src="@Url.Content("~/js/admin/index.js")"></script>
+    </environment>
+
+    <environment names="Production">
+        <script src="@Url.Content("~/js/admin/index.js")" asp-append-version="true"></script>
+    </environment>
 }
 
 <style>
@@ -618,20 +627,20 @@
         padding: 1.5rem
     }
 
-    form.active {
-        border-color: red !important;
-    }
+        form.active {
+            border-color: red !important;
+        }
 
-    form .progress {
-        height: 38px;
-    }
+        form .progress {
+            height: 38px;
+        }
 
     .dm-uploader {
         border: 0.25rem dashed #A5A5C7;
     }
 
-    .dm-uploader.active {
-        border-color: red;
-        border-style: solid;
-    }
+        .dm-uploader.active {
+            border-color: red;
+            border-style: solid;
+        }
 </style>
