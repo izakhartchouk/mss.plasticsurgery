@@ -65,7 +65,7 @@
             },
             onUploadSuccess: function (id, data) {
                 // A file was successfully uploaded
-                pendingFormData.Images.push(data.filePath);
+                pendingFormData.Images.push({ path: data.filePath, shouldSave: true });
                 uiMultiSetFilePath(id, data.filePath);
 
                 uiMultiUpdateFileStatus(id, 'success', 'Upload Complete');
@@ -92,13 +92,19 @@
     });
 
     $operationModal.on('hide.bs.modal', function (event) {
-        if (pendingFormData.Images.length > 0 && actionType !== 'create') {
+        var imagesArray = pendingFormData.Images
+            .filter(function(item) { return item.shouldDelete; })
+            .map(function (item) { return item.path; });
+
+        var dataToSend = { Images: imagesArray };
+
+        if (dataToSend.length > 0 && actionType !== 'create') {
             $.ajax({
                 type: 'POST',
                 url: '/Administration/DiscardFiles',
                 dataType: 'json',
                 contentType: 'application/json; charset=utf-8',
-                data: JSON.stringify(pendingFormData.Images),
+                data: JSON.stringify(dataToSend),
                 success: function (result) {
                     actionType = 'discard';
                 }
@@ -108,24 +114,28 @@
         $modalFormWithUploader.trigger('reset');
         uiMultiResetFileList();
         $uploader.dmUploader('reset');
+        $('.modal-backdrop').remove();
         pendingFormData.Images.length = 0;
     });
 
-    $modalFormSaveButton.on('click', function(event) {
-        $.extend(pendingFormData, $modalFormWithUploader.serializeToObject());
+    $modalFormSaveButton.on('click', function (event) {
+        var imagesArray = pendingFormData.Images
+            .filter(function(item) { return item.shouldSave; })
+            .map(function(item) { return item.path; });
+
+        var dataToSend = $.extend({ Images: imagesArray }, $modalFormWithUploader.serializeToObject());
 
         $.ajax({
             type: 'POST',
             url: '/Administration/CreateOperation',
             dataType: 'json',
             contentType: 'application/x-www-form-urlencoded; charset=utf-8',
-            data: pendingFormData,
+            data: dataToSend,
             success: function (result) {
                 updateOperationsTab();
 
                 actionType = 'create';
                 $operationModal.modal('hide');
-                $('.modal-backdrop').remove();
             }
         });
     });
@@ -140,6 +150,7 @@
             contentType: 'application/json; charset=utf-8',
             data: operationId,
             success: function (result) {
+                actionType = 'update';
                 populateFormWithData(result);
                 $operationModal.modal('show');
             }
@@ -205,8 +216,10 @@
                 contentType: 'application/json; charset=utf-8',
                 data: JSON.stringify(filePaths),
                 success: function (result) {
-                    var index = pendingFormData.Images.indexOf(filePath);
-                    pendingFormData.Images.splice(index, 1);
+                    var index = pendingFormData.Images.findIndex(function(item) {
+                        return item.path === filePath;
+                    });
+                    pendingFormData.Images[index].shouldDelete = true;
                     uiMultiRemoveFile(fileId);
                 }
             });
