@@ -93,18 +93,16 @@
 
     $operationModal.on('hide.bs.modal', function (event) {
         var imagesArray = pendingFormData.Images
-            .filter(function(item) { return item.shouldDelete; })
+            .filter(function(item) { return item.shouldSave; })
             .map(function (item) { return item.path; });
 
-        var dataToSend = { Images: imagesArray };
-
-        if (dataToSend.length > 0 && actionType !== 'create') {
+        if (imagesArray.length > 0) {
             $.ajax({
                 type: 'POST',
                 url: '/Administration/DiscardFiles',
                 dataType: 'json',
                 contentType: 'application/json; charset=utf-8',
-                data: JSON.stringify(dataToSend),
+                data: JSON.stringify(imagesArray),
                 success: function (result) {
                     actionType = 'discard';
                 }
@@ -119,25 +117,73 @@
     });
 
     $modalFormSaveButton.on('click', function (event) {
-        var imagesArray = pendingFormData.Images
-            .filter(function(item) { return item.shouldSave; })
-            .map(function(item) { return item.path; });
+        if (actionType === 'update') {
+            var deleteImagesArray = pendingFormData.Images
+                .filter(function (item) { return item.shouldDelete; })
+                .map(function (item) { return item.path; });
 
-        var dataToSend = $.extend({ Images: imagesArray }, $modalFormWithUploader.serializeToObject());
-
-        $.ajax({
-            type: 'POST',
-            url: '/Administration/CreateOperation',
-            dataType: 'json',
-            contentType: 'application/x-www-form-urlencoded; charset=utf-8',
-            data: dataToSend,
-            success: function (result) {
-                updateOperationsTab();
-
-                actionType = 'create';
-                $operationModal.modal('hide');
+            if (deleteImagesArray.length > 0) {
+                $.ajax({
+                    type: 'POST',
+                    url: '/Administration/DiscardFiles',
+                    dataType: 'json',
+                    contentType: 'application/x-www-form-urlencoded; charset=utf-8',
+                    data: { filePaths: deleteImagesArray, shouldPersist: true }
+                });
             }
-        });
+
+            var saveImagesArray = pendingFormData.Images
+                .filter(function (item) { return item.shouldSave; })
+                .map(function (item) { return item.path; });
+
+            var operationId = $('.edit-operation-button').attr('data-operation-id');
+            var saveDataToSend = $.extend(
+                {
+                    Id: operationId,
+                    Images: saveImagesArray
+                },
+                $modalFormWithUploader.serializeToObject());
+
+            $.ajax({
+                type: 'POST',
+                url: '/Administration/UpdateOperation',
+                dataType: 'json',
+                contentType: 'application/x-www-form-urlencoded; charset=utf-8',
+                data: saveDataToSend,
+                success: function (result) {
+                    updateOperationsTab();
+
+                    actionType = 'discard';
+                    pendingFormData.Images.length = 0;
+                    $operationModal.modal('hide');
+                }
+            });
+        } else if(actionType === 'create') {
+            var imagesArray = pendingFormData.Images
+                .filter(function (item) { return item.shouldSave; })
+                .map(function (item) { return item.path; });
+
+            var dataToSend = $.extend({ Images: imagesArray }, $modalFormWithUploader.serializeToObject());
+
+            $.ajax({
+                type: 'POST',
+                url: '/Administration/CreateOperation',
+                dataType: 'json',
+                contentType: 'application/x-www-form-urlencoded; charset=utf-8',
+                data: dataToSend,
+                success: function (result) {
+                    updateOperationsTab();
+
+                    actionType = 'discard';
+                    pendingFormData.Images.length = 0;
+                    $operationModal.modal('hide');
+                }
+            });
+        }
+    });
+
+    $(document).on('click', '#create-operation-button', function (event) {
+        actionType = 'create';
     });
 
     $(document).on('click', '.edit-operation-button', function (event) {
@@ -180,6 +226,7 @@
             contentType: 'application/json; charset=utf-8',
             data: operationId,
             success: function (result) {
+                actionType = 'discard';
                 updateOperationsTab();
             }
         });
@@ -209,20 +256,30 @@
             var filePath = $li.data('file-path');
             filePaths.push(filePath);
 
-            $.ajax({
-                type: 'POST',
-                url: '/Administration/DiscardFiles',
-                dataType: 'json',
-                contentType: 'application/json; charset=utf-8',
-                data: JSON.stringify(filePaths),
-                success: function (result) {
-                    var index = pendingFormData.Images.findIndex(function(item) {
-                        return item.path === filePath;
-                    });
-                    pendingFormData.Images[index].shouldDelete = true;
-                    uiMultiRemoveFile(fileId);
-                }
+            var index = pendingFormData.Images.findIndex(function (item) {
+                return item.path === filePath;
             });
+
+            if (actionType === 'create') {
+                $.ajax({
+                    type: 'POST',
+                    url: '/Administration/DiscardFiles',
+                    dataType: 'json',
+                    contentType: 'application/json; charset=utf-8',
+                    data: JSON.stringify(filePaths)
+                });
+
+                pendingFormData.Images.splice(index, 1);
+            } else if (actionType === 'update') {
+                if (index > -1) {
+                    pendingFormData.Images[index].shouldSave = false;
+                    pendingFormData.Images[index].shouldDelete = true;
+                } else {
+                    pendingFormData.Images.push({ path: filePath, shouldDelete: true });
+                }
+            }
+
+            uiMultiRemoveFile(fileId);
         });
 
         if (src) {

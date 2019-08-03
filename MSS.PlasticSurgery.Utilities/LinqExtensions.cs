@@ -11,5 +11,10 @@ namespace MSS.PlasticSurgery.Utilities
                 .GroupBy(x => x.index % parts)
                 .Select(x => x.Select(y => y.item));
         }
+
+        public static IEnumerable<T> Safe<T>(this IEnumerable<T> list)
+        {
+            return list ?? Enumerable.Empty<T>();
+        }
     }
 }

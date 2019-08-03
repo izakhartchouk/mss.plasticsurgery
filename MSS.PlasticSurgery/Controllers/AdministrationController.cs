@@ -15,13 +15,16 @@ namespace MSS.PlasticSurgery.Controllers
     public class AdministrationController : Controller
     {
         private readonly IGenericRepository<Operation, int> _operationRepository;
+        private readonly IGenericRepository<Image, int> _imageRepository;
         private readonly IHostingEnvironment _hostingEnvironment;
 
         public AdministrationController(
             IGenericRepository<Operation, int> operationRepository,
+            IGenericRepository<Image, int> imageRepository,
             IHostingEnvironment hostingEnvironment)
         {
             _operationRepository = operationRepository;
+            _imageRepository = imageRepository;
             _hostingEnvironment = hostingEnvironment;
         }
 
@@ -40,11 +43,13 @@ namespace MSS.PlasticSurgery.Controllers
                 Description = operation.Description
             };
 
-            operationDto.Images = operation.Images.Select(filePath => new Image()
-            {
-                Operation = operationDto,
-                Path = filePath
-            }).ToArray();
+            operationDto.Images = operation.Images.Safe()
+                .Select(filePath => new Image()
+                {
+                    Operation = operationDto,
+                    Path = filePath
+                })
+                .ToArray();
 
             _operationRepository.Create(operationDto);
 
@@ -85,6 +90,24 @@ namespace MSS.PlasticSurgery.Controllers
 
         public IActionResult UpdateOperation(OperationViewModel operation)
         {
+            var operationEntity = new Operation()
+            {
+                Id = operation.Id,
+                Title = operation.Title,
+                Subtitle = operation.Subtitle,
+                Description = operation.Description,
+            };
+
+            operationEntity.Images = operation.Images.Safe()
+                .Select(filePath => new Image()
+                {
+                    Operation = operationEntity,
+                    Path = filePath
+                })
+                .ToArray();
+
+            _operationRepository.Update(operationEntity);
+
             return Json("success");
         }
 
@@ -120,9 +143,21 @@ namespace MSS.PlasticSurgery.Controllers
         }
 
         [HttpPost]
-        public IActionResult DiscardFiles([FromBody] IEnumerable<string> filePaths)
+        public IActionResult DiscardFiles(IEnumerable<string> filePaths, bool shouldPersist)
         {
-            DeleteFiles(filePaths);
+            var filePathsArray = filePaths.ToArray();
+
+            DeleteFiles(filePathsArray);
+
+            if (shouldPersist)
+            {
+                var imageEntities =_imageRepository.Get(x => filePathsArray.Contains(x.Path));
+
+                foreach (var imageEntity in imageEntities)
+                {
+                    _imageRepository.Delete(imageEntity);
+                }
+            }
 
             return Ok(new
             {
