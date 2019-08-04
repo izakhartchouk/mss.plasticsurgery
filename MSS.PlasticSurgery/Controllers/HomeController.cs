@@ -1,15 +1,21 @@
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using MSS.PlasticSurgery.DataAccess.Entities;
+using MSS.PlasticSurgery.DataAccess.Repositories.Interfaces;
 using MSS.PlasticSurgery.Models;
 
 namespace MSS.PlasticSurgery.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly IGenericRepository<Operation, int> _operationRepository;
+
+        public HomeController(IGenericRepository<Operation, int> operationRepository)
+        {
+            _operationRepository = operationRepository;
+        }
+
         public IActionResult Index()
         {
             return View();
@@ -22,7 +28,17 @@ namespace MSS.PlasticSurgery.Controllers
 
         public IActionResult PhotoGallery()
         {
-            return View();
+            var operationViewModels = _operationRepository.GetAll()
+                .Select(x => new OperationViewModel()
+                {
+                    Id = x.Id,
+                    Title = x.Title,
+                    Subtitle = x.Subtitle,
+                    Description = x.Description,
+                    Images = x.Images.Select(y => y.Path)
+                });
+
+            return View(operationViewModels);
         }
 
         public IActionResult Contacts()

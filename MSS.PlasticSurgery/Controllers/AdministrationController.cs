@@ -143,7 +143,7 @@ namespace MSS.PlasticSurgery.Controllers
         }
 
         [HttpPost]
-        public IActionResult DiscardFiles(IEnumerable<string> filePaths, bool shouldPersist)
+        public IActionResult DeleteFiles(IEnumerable<string> filePaths, bool shouldPersist)
         {
             var filePathsArray = filePaths.ToArray();
 

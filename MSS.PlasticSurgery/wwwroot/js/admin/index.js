@@ -99,7 +99,7 @@
         if (imagesArray.length > 0) {
             $.ajax({
                 type: 'POST',
-                url: '/Administration/DiscardFiles',
+                url: '/Administration/DeleteFiles',
                 dataType: 'json',
                 contentType: 'application/json; charset=utf-8',
                 data: JSON.stringify(imagesArray),
@@ -125,7 +125,7 @@
             if (deleteImagesArray.length > 0) {
                 $.ajax({
                     type: 'POST',
-                    url: '/Administration/DiscardFiles',
+                    url: '/Administration/DeleteFiles',
                     dataType: 'json',
                     contentType: 'application/x-www-form-urlencoded; charset=utf-8',
                     data: { filePaths: deleteImagesArray, shouldPersist: true }
@@ -263,7 +263,7 @@
             if (actionType === 'create') {
                 $.ajax({
                     type: 'POST',
-                    url: '/Administration/DiscardFiles',
+                    url: '/Administration/DeleteFiles',
                     dataType: 'json',
                     contentType: 'application/json; charset=utf-8',
                     data: JSON.stringify(filePaths)

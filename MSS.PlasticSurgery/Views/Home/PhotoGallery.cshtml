@@ -3,7 +3,38 @@
     ViewData["Title"] = "Photo Gallery";
 }
 
+@model IEnumerable<OperationViewModel>
+
+@{
+    var filePaths = Model.SelectMany(x => x.Images);
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/lib/jquery-swiper/css/swiper.min.css">
+    <link rel="stylesheet" href="~/css/home/photo-gallery.css">
+}
+
 <div class="inner-container">
+    <div id="before-and-after" class="carousel">
+
+        <div class="swiper-container">
+            <div class="swiper-wrapper">
+                @foreach (var filePath in filePaths)
+                {
+                    <div class="swiper-slide">
+                        <img src="@Url.Content(filePath)" alt="Operation Image" class="slider-image"/>
+                    </div>
+                }
+            </div>
+        </div>
+
+        <a class="carousel-control left" href="#"></a>
+        <a class="carousel-control right" href="#"></a>
+
+    </div>
+</div>
+
+@*<div class="inner-container">
     <h3>Before &amp; after photo gallery</h3>
     <div id="before-and-after" class="carousel slide">
         <div class="carousel-inner">
@@ -24,14 +55,27 @@
         <a class="carousel-control left" href="#before-and-after" data-slide="prev"></a>
         <a class="carousel-control right" href="#before-and-after" data-slide="next"></a>
     </div><!-- End of carousel -->
-</div>
+</div>*@
 
 @section Scripts {
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jquery-swiper/js/swiper.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+
     <script>
-        jQuery('#before-and-after').carousel({
-            "interval": 8000
+        var swiper = new Swiper('.swiper-container', {
+            loop: true,
+            grabCursor: true
+        });
+
+        $('.carousel-control.left').click(function (e) {
+            e.preventDefault();
+            swiper.slidePrev();
+        });
+
+        $('.carousel-control.right').click(function (e) {
+            e.preventDefault();
+            swiper.slideNext();
         });
     </script>
 }
