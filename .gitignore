@@ -252,3 +252,5 @@ paket-files/
 *.sln.iml
 
 MSS\.PlasticSurgery/web\.config
+
+MSS\.PlasticSurgery/wwwroot/img/operations/
