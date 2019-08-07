@@ -38,7 +38,7 @@ iframe {
 .scene-item .item-mask {
     font-family: 'Montserrat', sans-serif;
     font-weight: bold;
-    background-color: rgba(255, 103, 161, 0.9);
+    background-color: #C0C0C0;
     text-decoration: none;
     display: table;
     color: white;
@@ -293,7 +293,9 @@ iframe {
 }
 
 @media (max-width: 768px) {
-    .scene-item .item-mask { background-color: rgba(255, 103, 161, 0.6); }
+    .scene-item .item-mask {
+         background-color: #C0C0C0;
+    }
 
     .scene-item .item-mask,
     .scene-item .link-text {
