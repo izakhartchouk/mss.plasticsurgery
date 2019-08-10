@@ -9,6 +9,7 @@
     var $modalFormCloseButton = $('#modal-form-close', $operationModal);
 
     var pendingFormData = {
+        operationIdToUpdate: null,
         Images: []
     };
     var actionType = 'discard';
@@ -101,8 +102,8 @@
                 type: 'POST',
                 url: '/Administration/DeleteFiles',
                 dataType: 'json',
-                contentType: 'application/json; charset=utf-8',
-                data: JSON.stringify(imagesArray),
+                contentType: 'application/x-www-form-urlencoded; charset=utf-8',
+                data: { filePaths: imagesArray, shouldPersist: false },
                 success: function (result) {
                     actionType = 'discard';
                 }
@@ -136,7 +137,7 @@
                 .filter(function (item) { return item.shouldSave; })
                 .map(function (item) { return item.path; });
 
-            var operationId = $('.edit-operation-button').attr('data-operation-id');
+            var operationId = pendingFormData.operationIdToUpdate;
             var saveDataToSend = $.extend(
                 {
                     Id: operationId,
@@ -188,6 +189,7 @@
 
     $(document).on('click', '.edit-operation-button', function (event) {
         var operationId = $(event.target).attr('data-operation-id');
+        pendingFormData.operationIdToUpdate = operationId;
 
         $.ajax({
             type: 'POST',

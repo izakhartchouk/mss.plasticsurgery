@@ -98,13 +98,17 @@ namespace MSS.PlasticSurgery.Controllers
                 Description = operation.Description,
             };
 
-            operationEntity.Images = operation.Images.Safe()
+            var imageEntities = operation.Images.Safe()
                 .Select(filePath => new Image()
                 {
-                    Operation = operationEntity,
+                    OperationId = operation.Id,
                     Path = filePath
-                })
-                .ToArray();
+                });
+
+            foreach (var imageEntity in imageEntities)
+            {
+                _imageRepository.Create(imageEntity);
+            }
 
             _operationRepository.Update(operationEntity);
 

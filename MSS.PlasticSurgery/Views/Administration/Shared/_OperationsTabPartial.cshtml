@@ -26,7 +26,10 @@
                         <button class="btn mr-2 btn-danger delete-operation-button" data-operation-id="@operation.Id">Delete</button>
                     </div>
 
-                    <img src="@Url.Content(operation.Images.First())" alt="Card image cap" class="card-img-bottom">
+                    @if (operation.Images.Any())
+                    {
+                        <img src="@Url.Content(operation.Images.First())" alt="Card image cap" class="card-img-bottom">
+                    }
                 </div>
             }
         </div>
