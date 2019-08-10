@@ -1,0 +1,35 @@
+{
+    "iisSettings": {
+        "windowsAuthentication": false,
+        "anonymousAuthentication": true,
+        "iisExpress": {
+            "applicationUrl": "http://localhost:64655",
+            "sslPort": 0
+        }
+    },
+    "profiles": {
+        "Development - IIS Express": {
+            "commandName": "IISExpress",
+            "launchBrowser": false,
+            "environmentVariables": {
+                "ASPNETCORE_ENVIRONMENT": "Development"
+            }
+        },
+        "Development - Kestrel": {
+            "commandName": "Project",
+            "launchBrowser": false,
+            "applicationUrl": "http://localhost:5000",
+            "environmentVariables": {
+                "ASPNETCORE_ENVIRONMENT": "Development"
+            }
+        },
+        "Production - IIS Express": {
+            "commandName": "IISExpress",
+            "launchBrowser": true,
+            "applicationUrl": "https://mssurgeon.com:5001;http://mssurgeon.com:5000",
+            "environmentVariables": {
+                "ASPNETCORE_ENVIRONMENT": "Production"
+            }
+        }
+    }
+}

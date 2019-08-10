@@ -1,0 +1,44 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div id="scene"></div>
+
+<div id="policy">
+    <div>
+        <iframe src="@Url.Action("Privacy","Home")"></iframe>
+        <div id="hide-policy-btn" class="close-btn"></div>
+    </div>
+</div>
+
+<div id="social-links">
+    <ul>
+        <li><a href="https://www.facebook.com/" target="_blank"><i class="fa fa-facebook"></i></a></li>
+        <li><a href="https://twitter.com/" target="_blank"><i class="fa fa-twitter"></i></a></li>
+        <li><a href="https://plus.google.com/" target="_blank"><i class="fa fa-google-plus"></i></a></li>
+        <li><a href="https://www.instagram.com/" target="_blank"><i class="fa fa-instagram"></i></a></li>
+    </ul>
+</div>
+
+<div id="footer">
+    MSSURGEON &copy; @DateTime.Now.Year
+    <ul id="policy-btns"><li><a id="show-policy-btn" href="@Url.Action("Privacy","Home")">Privacy policy</a></li></ul>
+</div>
+
+@section Scripts {
+    <script type="text/javascript">
+        var perfectoApp = new Perfecto.App('scene', 'img/map.png');
+
+        perfectoApp.setLinks([
+            { "text": "Обо мне", "url": "@Url.Action("About", "Home")" },
+            { "text": "Сертификаты", "url": "@Url.Action("NewServices", "Home")" },
+            { "text": "Галерея", "url": "@Url.Action("PhotoGallery", "Home")" },
+            { "text": "Виды операций", "url": "@Url.Action("HotOffers", "Home")" },
+            { "text": "Пациенту до операций", "url": "@Url.Action("OurClients", "Home")" },
+            { "text": "Пациенту после операций", "url": "@Url.Action("Procedures", "Home")" },
+            { "text": "Отзывы", "url": "@Url.Action("OurStaff", "Home")" },
+            { "text": "Контакты", "url": "@Url.Action("Contacts", "Home")" },
+            { "text": "Партнеры", "url": "@Url.Action("Contacts", "Home")" }
+        ]);
+    </script>
+}

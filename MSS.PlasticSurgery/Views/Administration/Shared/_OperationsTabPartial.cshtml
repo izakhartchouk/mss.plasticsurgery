@@ -1,0 +1,34 @@
+@using MSS.PlasticSurgery.Utilities
+
+@model IEnumerable<OperationViewModel>
+
+@{
+    int columnsCount = 3;
+    var operationsGroups = Model.Split(columnsCount);
+}
+
+<div class="row">
+    @foreach (var operationGroup in operationsGroups)
+    {
+        <div class="col-md-4">
+            @foreach (var operation in operationGroup)
+            {
+                <div class="main-card mb-3 card">
+                    <div class="card-header">
+                        @operation.Title
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">@operation.Subtitle</h5>
+                        @operation.Description
+                    </div>
+                    <div class="card-footer">
+                        <button class="btn mr-2 btn-secondary edit-operation-button" data-operation-id="@operation.Id">Edit</button>
+                        <button class="btn mr-2 btn-danger delete-operation-button" data-operation-id="@operation.Id">Delete</button>
+                    </div>
+
+                    <img src="@Url.Content(operation.Images.First())" alt="Card image cap" class="card-img-bottom">
+                </div>
+            }
+        </div>
+    }
+</div>
