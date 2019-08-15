@@ -1,10 +1,10 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using MSS.PlasticSurgery.DataAccess.Entities;
 using MSS.PlasticSurgery.DataAccess.EntityFrameworkCore;
 using MSS.PlasticSurgery.DataAccess.Repositories;
 using MSS.PlasticSurgery.DataAccess.Repositories.Interfaces;
@@ -28,14 +28,10 @@ namespace MSS.PlasticSurgery
                 .UseSqlServer(Configuration.GetConnectionString("DefaultDbConnectionString"))
             );
 
-            services.AddScoped(typeof(IGenericRepository<,>), typeof(GenericRepository<,>));
+            services.AddDefaultIdentity<User>()
+                .AddEntityFrameworkStores<AppDbContext>();
 
-            services.Configure<CookiePolicyOptions>(options =>
-            {
-                // This lambda determines whether user consent for non-essential cookies is needed for a given request.
-                options.CheckConsentNeeded = context => true;
-                options.MinimumSameSitePolicy = SameSiteMode.None;
-            });
+            services.AddScoped(typeof(IGenericRepository<,>), typeof(GenericRepository<,>));
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
@@ -52,8 +48,9 @@ namespace MSS.PlasticSurgery
                 app.UseExceptionHandler("/Home/Error");
             }
 
+            app.UseHttpsRedirection();
             app.UseStaticFiles();
-            app.UseCookiePolicy();
+            app.UseAuthentication();
 
             app.UseMvc(routes =>
             {

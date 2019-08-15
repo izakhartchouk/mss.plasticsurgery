@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using MSS.PlasticSurgery.DataAccess.Entities;
 using MSS.PlasticSurgery.DataAccess.EntityFrameworkCore;
@@ -17,12 +18,12 @@ namespace MSS.PlasticSurgery.DataAccess.Repositories
 
         public User GetById(int id)
         {
-            return _appDbContext.Users.Find(id);
+            return (User) _appDbContext.Users.Find(id);
         }
 
         public IEnumerable<User> GetAll()
         {
-            return _appDbContext.Users;
+            return _appDbContext.Users.Cast<User>();
         }
 
         public User Add(User user)
@@ -43,7 +44,7 @@ namespace MSS.PlasticSurgery.DataAccess.Repositories
 
         public User Delete(int id)
         {
-            User user = _appDbContext.Users.Find(id);
+            User user = (User) _appDbContext.Users.Find(id);
 
             if (user != null)
             {
