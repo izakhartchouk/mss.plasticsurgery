@@ -12,6 +12,7 @@ using MSS.PlasticSurgery.Utilities;
 
 namespace MSS.PlasticSurgery.Controllers
 {
+    //[Authorize(Policy = "AdministrationPolicy")]
     public class AdministrationController : Controller
     {
         private readonly IGenericRepository<Operation, int> _operationRepository;

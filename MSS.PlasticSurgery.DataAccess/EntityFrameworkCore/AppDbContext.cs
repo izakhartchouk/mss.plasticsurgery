@@ -1,11 +1,10 @@
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using MSS.PlasticSurgery.DataAccess.Entities;
 
 namespace MSS.PlasticSurgery.DataAccess.EntityFrameworkCore
 {
-    public class AppDbContext : IdentityDbContext<IdentityUser<int>, IdentityRole<int>, int>
+    public class AppDbContext : IdentityDbContext
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
