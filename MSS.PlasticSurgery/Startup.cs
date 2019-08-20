@@ -36,7 +36,7 @@ namespace MSS.PlasticSurgery
                 .UseSqlServer(Configuration.GetConnectionString("DefaultDbConnectionString"))
             );
 
-            services.AddDefaultIdentity<IdentityUser>()
+            services.AddIdentity<IdentityUser,IdentityRole>()
                 .AddEntityFrameworkStores<AppDbContext>();
             services.Configure<IdentityOptions>(options =>
             {
@@ -65,7 +65,7 @@ namespace MSS.PlasticSurgery
             {
                 // Cookie settings
                 options.Cookie.HttpOnly = true;
-                options.ExpireTimeSpan = TimeSpan.FromMinutes(5);
+                options.ExpireTimeSpan = TimeSpan.FromMinutes(double.Parse(Configuration.GetSection("CookieSettings")["ExpireInMinutes"]));
 
                 options.LoginPath = "/Account/Login";
                 options.LogoutPath = "/Account/Logout";
@@ -74,6 +74,11 @@ namespace MSS.PlasticSurgery
             });
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("AdminPolicy", policy => policy.RequireRole("Admin"));
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

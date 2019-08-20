@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using MSS.PlasticSurgery.DataAccess.Entities;
 using MSS.PlasticSurgery.Models;
 
 namespace MSS.PlasticSurgery.Controllers
@@ -42,7 +41,7 @@ namespace MSS.PlasticSurgery.Controllers
                     }
                     else
                     {
-                        return RedirectToAction("Login", "Account");
+                        return RedirectToAction("Index", "Administration");
                     }
                 }
                 else
@@ -54,14 +53,16 @@ namespace MSS.PlasticSurgery.Controllers
             return View(model);
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
+        [Authorize(Policy = "AdminPolicy")]
+        //[HttpPost] TODO: Add AntiForgery to all restricted areas
+        //[ValidateAntiForgeryToken]
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
             return RedirectToAction("Login", "Account");
         }
 
+        [HttpGet]
         public IActionResult AccessDenied()
         {
             return View();

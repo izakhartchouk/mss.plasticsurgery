@@ -1,0 +1,70 @@
+@font-face {
+    font-family: 'Press Start 2P';
+    font-style: normal;
+    font-weight: 400;
+    src: url('../../fonts/press-start-2p-v8-latin-ext_cyrillic_cyrillic-ext_latin_greek-regular.eot'); /* IE9 Compat Modes */
+    src: local('Press Start 2P Regular'), local('PressStart2P-Regular'),
+         url('../../fonts/press-start-2p-v8-latin-ext_cyrillic_cyrillic-ext_latin_greek-regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+         url('../../fonts/press-start-2p-v8-latin-ext_cyrillic_cyrillic-ext_latin_greek-regular.woff2') format('woff2'), /* Super Modern Browsers */
+         url('../../fonts/press-start-2p-v8-latin-ext_cyrillic_cyrillic-ext_latin_greek-regular.woff') format('woff'), /* Modern Browsers */
+         url('../../fonts/press-start-2p-v8-latin-ext_cyrillic_cyrillic-ext_latin_greek-regular.ttf') format('truetype'), /* Safari, Android, iOS */
+         url('../../fonts/press-start-2p-v8-latin-ext_cyrillic_cyrillic-ext_latin_greek-regular.svg#PressStart2P') format('svg'); /* Legacy iOS */
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+}
+
+* {
+    font-family: "Press Start 2P", cursive;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+#app {
+    padding: 1rem;
+    background: black;
+    display: flex;
+    height: 100%;
+    -o-justify-content: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -ms-align-items: center;
+    -o-align-items: center;
+    -webkit-align-items: center;
+    align-items: center;
+    color: #54fe55;
+    text-shadow: 0px 0px 10px;
+    font-size: 6rem;
+    flex-direction: column;
+}
+
+#app .txt {
+    font-size: 1.8rem;
+}
+
+@keyframes blink {
+    0% {
+        opacity: 0;
+    }
+    49% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+.blink {
+    -webkit-animation-name: blink;
+    animation-name: blink;
+    -webkit-animation-duration: 1s;
+    animation-duration: 1s;
+    -webkit-animation-iteration-count: infinite;
+    animation-iteration-count: infinite;
+}
