@@ -59,6 +59,7 @@ namespace MSS.PlasticSurgery
                 options.User.RequireUniqueEmail = false;
             });
 
+            services.AddTransient<DesignTimeDbContextFactory>();
             services.AddScoped(typeof(IGenericRepository<,>), typeof(GenericRepository<,>));
 
             services.ConfigureApplicationCookie(options =>

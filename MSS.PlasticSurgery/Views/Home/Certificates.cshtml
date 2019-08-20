@@ -1,0 +1,54 @@
+@{
+    Layout = "_PageLayout";
+    ViewData["Title"] = "Сертификаты";
+}
+
+@model IEnumerable<string>
+
+@section Styles {
+    <link rel="stylesheet" href="~/lib/jquery-swiper/css/swiper.min.css">
+    <link rel="stylesheet" href="~/css/home/photo-gallery.css">
+}
+
+<div class="inner-container">
+    <div id="before-and-after" class="carousel">
+
+        <div class="swiper-container">
+            <div class="swiper-wrapper">
+                @foreach (var filePath in Model)
+                {
+                    <div class="swiper-slide">
+                        <img src="@Url.Content(filePath)" alt="Certificate Image" class="slider-image" />
+                    </div>
+                }
+            </div>
+        </div>
+
+        <a class="carousel-control left" href="#"></a>
+        <a class="carousel-control right" href="#"></a>
+
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jquery-swiper/js/swiper.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+
+    <script>
+        var swiper = new Swiper('.swiper-container', {
+            loop: true,
+            grabCursor: true
+        });
+
+        $('.carousel-control.left').click(function (e) {
+            e.preventDefault();
+            swiper.slidePrev();
+        });
+
+        $('.carousel-control.right').click(function (e) {
+            e.preventDefault();
+            swiper.slideNext();
+        });
+    </script>
+}
