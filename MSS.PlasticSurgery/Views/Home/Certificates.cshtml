@@ -3,53 +3,32 @@
     ViewData["Title"] = "Сертификаты";
 }
 
-@model IEnumerable<string>
+@model Dictionary<string, string>
 
 @section Styles {
-    <link rel="stylesheet" href="~/lib/jquery-swiper/css/swiper.min.css">
-    <link rel="stylesheet" href="~/css/home/photo-gallery.css">
+    <link type="text/css" rel="stylesheet" href="~/lib/jquery-lightgallery/css/lightgallery.min.css">
 }
 
 <div class="inner-container">
-    <div id="before-and-after" class="carousel">
-
-        <div class="swiper-container">
-            <div class="swiper-wrapper">
-                @foreach (var filePath in Model)
-                {
-                    <div class="swiper-slide">
-                        <img src="@Url.Content(filePath)" alt="Certificate Image" class="slider-image" />
-                    </div>
-                }
-            </div>
-        </div>
-
-        <a class="carousel-control left" href="#"></a>
-        <a class="carousel-control right" href="#"></a>
-
+    <div id="lightgallery">
+        @foreach (var item in Model)
+        {
+            <a href="@Url.Content(item.Key)">
+                <img src="@Url.Content(item.Value)" />
+            </a>
+        }
     </div>
 </div>
 
 @section Scripts {
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/jquery-swiper/js/swiper.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="~/lib/jquery-lightgallery/js/lightgallery.min.js"></script>
+    <script src="~/lib/jquery-lightgallery/js/lg-fullscreen.min.js"></script>
+    <script src="~/lib/jquery-lightgallery/js/lg-thumbnail.min.js"></script>
 
     <script>
-        var swiper = new Swiper('.swiper-container', {
-            loop: true,
-            grabCursor: true,
-            preloadImages: false
-        });
-
-        $('.carousel-control.left').click(function (e) {
-            e.preventDefault();
-            swiper.slidePrev();
-        });
-
-        $('.carousel-control.right').click(function (e) {
-            e.preventDefault();
-            swiper.slideNext();
+        $(document).ready(function() {
+            $("#lightgallery").lightGallery();
         });
     </script>
 }

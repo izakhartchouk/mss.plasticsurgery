@@ -23,4 +23,9 @@
     <Content Update="wwwroot\img\certificates\**\*.*" CopyToPublishDirectory="Never" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\img\certificates\thumbnails\" />
+    <Folder Include="wwwroot\lib\jquery-lightgallery\" />
+  </ItemGroup>
+
 </Project>

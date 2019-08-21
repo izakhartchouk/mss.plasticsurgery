@@ -65,14 +65,22 @@ namespace MSS.PlasticSurgery.Controllers
 
         public IActionResult Certificates()
         {
-            var wrp = _hostingEnvironment.WebRootPath + "\\img\\certificates";
-            string[] filesArray = Directory.GetFiles(wrp);
+            var certificatesWebRootPath = _hostingEnvironment.WebRootPath + "\\img\\certificates";
+            var certificateThumbnailsWebRootPath = _hostingEnvironment.WebRootPath + "\\img\\certificates\\thumbnails";
+            string[] filesArray = Directory.GetFiles(certificatesWebRootPath);
 
-            var relativePaths = new List<string>();
-            foreach (var s in filesArray)
+            var relativePaths = new Dictionary<string, string>();
+            foreach (var absolutePath in filesArray)
             {
-                var updated = s.Replace(_hostingEnvironment.WebRootPath, "").Replace("\\", "/");
-                relativePaths.Add(updated);
+                var fileInfo = new FileInfo(absolutePath);
+                var relativeThumbnailImagePath = (certificateThumbnailsWebRootPath + "\\" +
+                                                  fileInfo.Name.Replace(fileInfo.Extension, "") + "_tn" +
+                                                  fileInfo.Extension)
+                    .Replace(_hostingEnvironment.WebRootPath, "")
+                    .Replace("\\", "/");
+
+                var relativeOriginalImagePath = absolutePath.Replace(_hostingEnvironment.WebRootPath, "").Replace("\\", "/");
+                relativePaths.Add(relativeOriginalImagePath, relativeThumbnailImagePath);
             }
 
             return View(relativePaths);
