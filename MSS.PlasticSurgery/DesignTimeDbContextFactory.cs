@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
@@ -12,12 +11,12 @@ namespace MSS.PlasticSurgery
     {
         public AppDbContext CreateDbContext(string[] args)
         {
-            //var envName = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT"); TODO: envName is empty, why??
+            var envName = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
 
             IConfigurationRoot configurationRoot = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("appsettings.json", optional: false)
-                .AddJsonFile($"appsettings.Development.json", optional: false)  // TODO: have to set envName. Need to fix this!
+                .AddJsonFile($"appsettings.{envName ?? "Production"}.json", optional: false)
                 .Build();
 
             var connectionString = configurationRoot.GetConnectionString("DefaultDbConnectionString");
