@@ -10,7 +10,7 @@
 }
 
 <div class="inner-container">
-    <div id="lightgallery">
+    <div id="light-gallery">
         @foreach (var item in Model)
         {
             <a href="@Url.Content(item.Key)">
@@ -27,8 +27,20 @@
     <script src="~/lib/jquery-lightgallery/js/lg-thumbnail.min.js"></script>
 
     <script>
-        $(document).ready(function() {
-            $("#lightgallery").lightGallery();
-        });
+        (function ($) {
+            'use strict';
+
+            $(document).ready(function () {
+                var $lightGallery = $('#light-gallery').lightGallery();
+
+                $lightGallery.on('onBeforeOpen.lg', function (event) {
+                    $('.page-wrapper.loaded .close-btn', parent.document).hide();
+                });
+
+                $lightGallery.on('onBeforeClose.lg', function (event) {
+                    $('.page-wrapper.loaded .close-btn', parent.document).show('slow');
+                });
+            });
+        })(jQuery);
     </script>
 }
