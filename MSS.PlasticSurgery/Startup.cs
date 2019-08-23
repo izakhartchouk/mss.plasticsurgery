@@ -62,11 +62,12 @@ namespace MSS.PlasticSurgery
             services.AddTransient<DesignTimeDbContextFactory>();
             services.AddScoped(typeof(IGenericRepository<,>), typeof(GenericRepository<,>));
 
+            var expireInMinutes = Configuration.GetSection("CookieSettings")["ExpireInMinutes"];
             services.ConfigureApplicationCookie(options =>
             {
                 // Cookie settings
                 options.Cookie.HttpOnly = true;
-                options.ExpireTimeSpan = TimeSpan.FromMinutes(double.Parse(Configuration.GetSection("CookieSettings")["ExpireInMinutes"]));
+                options.ExpireTimeSpan = TimeSpan.FromMinutes(double.Parse(expireInMinutes));
 
                 options.LoginPath = "/Account/Login";
                 options.LogoutPath = "/Account/Logout";

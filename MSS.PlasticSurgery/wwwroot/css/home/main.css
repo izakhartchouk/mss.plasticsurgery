@@ -38,7 +38,7 @@ iframe {
 .scene-item .item-mask {
     font-family: 'Montserrat', sans-serif;
     font-weight: bold;
-    background-color: #C0C0C0;
+    background-color: #6AE694;
     text-decoration: none;
     display: table;
     color: white;
@@ -294,7 +294,7 @@ iframe {
 
 @media (max-width: 768px) {
     .scene-item .item-mask {
-         background-color: #C0C0C0;
+         background-color: #6AE694;
     }
 
     .scene-item .item-mask,
