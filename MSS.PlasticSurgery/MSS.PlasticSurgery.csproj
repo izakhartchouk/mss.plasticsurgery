@@ -20,7 +20,7 @@
 
   <ItemGroup>
     <Content Update="wwwroot\img\operations\**\*.*" CopyToPublishDirectory="Never" />
-    <Content Update="wwwroot\img\certificates\**\*.*" CopyToPublishDirectory="Never" />
+    <Content Update="wwwroot\img\certificates\**\*.*" CopyToPublishDirectory="True" />
   </ItemGroup>
 
   <ItemGroup>
