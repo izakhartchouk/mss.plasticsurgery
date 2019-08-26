@@ -53,7 +53,12 @@ namespace MSS.PlasticSurgery.Controllers
             return View();
         }
 
-        public IActionResult OurClients()
+        public IActionResult BeforeOperation()
+        {
+            return View();
+        }
+
+        public IActionResult AfterOperation()
         {
             return View();
         }
@@ -91,11 +96,6 @@ namespace MSS.PlasticSurgery.Controllers
         }
 
         public IActionResult HotOffers()
-        {
-            return View();
-        }
-
-        public IActionResult Procedures()
         {
             return View();
         }

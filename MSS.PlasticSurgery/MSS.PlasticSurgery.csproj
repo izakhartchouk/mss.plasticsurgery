@@ -25,6 +25,7 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\img\certificates\thumbnails\" />
+    <Folder Include="wwwroot\img\avatars\" />
     <Folder Include="wwwroot\lib\jquery-lightgallery\" />
   </ItemGroup>
 
