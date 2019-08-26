@@ -2,7 +2,21 @@
     text-align: center;
 }
 
-.center-image {
-    display: block;
-    margin: 0 auto;
+.mss-signature {
+    float: left;
+    margin: 0px 15px 15px 0px;
+    width: 40%;
+}
+
+@media handheld, only screen and (max-width: 680px) {
+    .mss-signature {
+        margin: 0 auto;
+        float: none;
+        display: block;
+    }
+}
+
+.mss-avatar {
+    float: left;
+    margin: 0px 15px 15px 0px;
 }
