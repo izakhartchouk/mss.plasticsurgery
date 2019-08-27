@@ -1,22 +1,38 @@
-﻿h3 {
+h3 {
     text-align: center;
+}
+img {
+    margin: 0;
+    width: 100%;
+}
+.inner-container {
+    position: relative;
 }
 
 .mss-signature {
-    float: left;
-    margin: 0px 15px 15px 0px;
-    width: 40%;
-}
-
-@media handheld, only screen and (max-width: 680px) {
-    .mss-signature {
-        margin: 0 auto;
-        float: none;
-        display: block;
-    }
+    width: 100%;
+    margin: 0 auto 5px;
 }
 
 .mss-avatar {
-    float: left;
-    margin: 0px 15px 15px 0px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.section-title {
+    margin-top: 13px;
+    font-weight: normal;
+    font-family: 'PT Sans', sans-serif;
+}
+
+@media all and (max-width: 768px) {
+    .mss-signature, .mss-avatar {
+        width: 70%;
+    }
+}
+
+@media all and (max-width: 600px) {
+    .mss-signature, .mss-avatar {
+        width: 100%;
+    }
 }
