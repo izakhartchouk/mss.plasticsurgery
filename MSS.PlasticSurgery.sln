@@ -7,7 +7,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MSS.PlasticSurgery", "MSS.P
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MSS.PlasticSurgery.DataAccess", "MSS.PlasticSurgery.DataAccess\MSS.PlasticSurgery.DataAccess.csproj", "{701AABFC-BB27-41B6-88C4-A31FF684C002}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MSS.PlasticSurgery.Utilities", "MSS.PlasticSurgery.Utilities\MSS.PlasticSurgery.Utilities.csproj", "{A95909CE-BB18-4D64-8185-A76A9A0E6337}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MSS.PlasticSurgery.Utilities", "MSS.PlasticSurgery.Utilities\MSS.PlasticSurgery.Utilities.csproj", "{A95909CE-BB18-4D64-8185-A76A9A0E6337}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B64427E9-A76B-4125-9A30-4DAFF1C92B92}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
