@@ -95,7 +95,7 @@ namespace MSS.PlasticSurgery.Controllers
             return View(relativePaths);
         }
 
-        public IActionResult HotOffers()
+        public IActionResult OperationTypes()
         {
             return View();
         }
