@@ -48,6 +48,33 @@ namespace MSS.PlasticSurgery.Controllers
             return View(operationViewModels);
         }
 
+        public IActionResult Gallery()
+        {
+            var certificatesWebRootPath = _hostingEnvironment.WebRootPath + "\\img\\certificates";
+            var certificateThumbnailsWebRootPath = _hostingEnvironment.WebRootPath + "\\img\\certificates\\thumbnails";
+            string[] filesArray = Directory.GetFiles(certificatesWebRootPath);
+            string[] thumbnailsArray = Directory.GetFiles(certificateThumbnailsWebRootPath);
+
+            var relativePaths = new Dictionary<string, string>();
+            for (int i = 0; i < filesArray.Length; i++)
+            {
+                var filePath = filesArray[i];
+                var thumbnailPath = thumbnailsArray[i];
+
+                var relativeThumbnailImagePath = thumbnailPath
+                    .Replace(_hostingEnvironment.WebRootPath, "")
+                    .Replace("\\", "/");
+
+                var relativeOriginalImagePath = filePath
+                    .Replace(_hostingEnvironment.WebRootPath, "")
+                    .Replace("\\", "/");
+
+                relativePaths.Add(relativeOriginalImagePath, relativeThumbnailImagePath);
+            }
+
+            return View(relativePaths);
+        }
+
         public IActionResult Contacts()
         {
             return View();

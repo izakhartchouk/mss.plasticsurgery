@@ -1,0 +1,20 @@
+﻿.inner-container {
+    padding: 0;
+}
+
+#light-gallery {
+    width: 450px;
+    margin: 0 auto;
+}
+
+@media all and (max-width: 550px) {
+    #light-gallery {
+        width: 300px;
+    }
+}
+
+@media all and (max-width: 420px) {
+    #light-gallery {
+        width: 230px;
+    }
+}
