@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -12,6 +13,7 @@ using MSS.PlasticSurgery.Utilities;
 
 namespace MSS.PlasticSurgery.Controllers
 {
+    [Authorize(Policy = "AdminPolicy")]
     public class AdministrationController : Controller
     {
         private readonly IGenericRepository<Operation, int> _operationRepository;

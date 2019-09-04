@@ -234,6 +234,14 @@
         });
     });
 
+    $('#btnGroupDrop1').on('click', function (event) {
+        $(document).one('click', function(event) {
+            $('#btnGroupDropMenu1').removeClass('show');
+        });
+
+        $('#btnGroupDropMenu1').addClass('show');
+    });
+
     function updateOperationsTab() {
         $operationsTab.load('/Administration/GetOperations');
     }
