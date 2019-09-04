@@ -15,12 +15,39 @@ namespace MSS.PlasticSurgery.Controllers
         private readonly IHostingEnvironment _hostingEnvironment;
         private readonly IGenericRepository<Operation, int> _operationRepository;
 
+        private readonly string[] _operationTypeTitles;
+
         public HomeController(
             IHostingEnvironment hostingEnvironment,
             IGenericRepository<Operation, int> operationRepository)
         {
             _hostingEnvironment = hostingEnvironment;
             _operationRepository = operationRepository;
+
+            _operationTypeTitles = new string[]
+            {
+                "Увеличение груди (аугментационная маммопластика)",
+                "Подтяжка груди (мастопексия)",
+                "Уменьшение груди (редукционная маммопластика)",
+                "Пластика век (блефаропластика)",
+                "Пластика передней брюшной стенки (абдоминопластика)",
+                "Пластика ушных раковин (отопластика)",
+                "Увеличение голеней (круропластика)",
+                "Уменьшение объёма жировой ткани (липосакция)",
+                "Пересадка волос (HFE аутотрансплантация)",
+                "Устранение гинекомастии (маскулинизирующая маммопластика)",
+                "Введение жировой ткани (липофилинг)",
+                "Протезирование полового члена (эндофаллопротезирование)",
+                "Подтяжка нижней трети лица (фейслифтинг)",
+                "Пластика носа (ринопластика)",
+                "Удаление комочков Биша",
+                "Маскулинизирующая маммопластика при транссексуализме",
+                "Пластика груди после мастэктомии",
+                "Пластика полового члена (фаллопластика)",
+                "Пластика дефектов мягких тканей",
+                "Хирургия кисти (удаление олеогранулёмы, устранение контрактуры Дюпюитрена)",
+                "Микрохирургическая аутотрансплантация пальцев стопы на кисть"
+            };
         }
 
         public IActionResult Index()
@@ -50,8 +77,8 @@ namespace MSS.PlasticSurgery.Controllers
 
         public IActionResult Gallery()
         {
-            var certificatesWebRootPath = _hostingEnvironment.WebRootPath + "\\img\\certificates";
-            var certificateThumbnailsWebRootPath = _hostingEnvironment.WebRootPath + "\\img\\certificates\\thumbnails";
+            var certificatesWebRootPath = _hostingEnvironment.WebRootPath + "\\img\\operations-multitypes";
+            var certificateThumbnailsWebRootPath = _hostingEnvironment.WebRootPath + "\\img\\operations-multitypes\\thumbnails";
             string[] filesArray = Directory.GetFiles(certificatesWebRootPath);
             string[] thumbnailsArray = Directory.GetFiles(certificateThumbnailsWebRootPath);
 
@@ -72,7 +99,13 @@ namespace MSS.PlasticSurgery.Controllers
                 relativePaths.Add(relativeOriginalImagePath, relativeThumbnailImagePath);
             }
 
-            return View(relativePaths);
+            var viewModel = new GalleryViewModel()
+            {
+                OperationTypeTitles = _operationTypeTitles,
+                ImagesAndThumbnails = relativePaths
+            };
+
+            return View(viewModel);
         }
 
         public IActionResult Contacts()

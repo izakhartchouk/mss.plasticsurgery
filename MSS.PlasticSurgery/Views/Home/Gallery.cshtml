@@ -3,70 +3,77 @@
     ViewData["Title"] = "Галерея";
 }
 
-@model Dictionary<string, string>
+@model GalleryViewModel
 
 @section Styles {
+    <link type="text/css" rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css">
     <link type="text/css" rel="stylesheet" href="~/lib/jquery-lightgallery/css/lightgallery.min.css">
     <link type="text/css" rel="stylesheet" href="~/css/home/gallery.css">
 }
 
 <div class="inner-container">
-    <ul class="unordered-list accent">
-        <li><span class="no-accent">Увеличение груди (аугментационная маммопластика)</span></li>
-        <li><span class="no-accent">Подтяжка груди (мастопексия)</span></li>
-        <li><span class="no-accent">Уменьшение груди (редукционная маммопластика).</span></li>
-        <li><span class="no-accent">Пластика век (блефаропластика)</span></li>
-        <li><span class="no-accent">Пластика передней брюшной стенки (абдоминопластика)</span></li>
-        <li><span class="no-accent">Пластика ушных раковин (отопластика)</span></li>
-        <li><span class="no-accent">Увеличение голеней (круропластика)</span></li>
-        <li><span class="no-accent">Уменьшение объёма жировой ткани (липосакция)</span></li>
-        <li><span class="no-accent">Пересадка волос (HFE аутотрансплантация)</span></li>
-        <li><span class="no-accent">Устранение гинекомастии (маскулинизирующая маммопластика)</span></li>
-        <li><span class="no-accent">Введение жировой ткани (липофилинг).</span></li>
-        <li><span class="no-accent">Протезирование полового члена (эндофаллопротезирование)</span></li>
-        <li><span class="no-accent">Подтяжка нижней трети лица (фейслифтинг)</span></li>
-        <li><span class="no-accent">Пластика носа (ринопластика)</span></li>
-        <li><span class="no-accent">Удаление комочков Биша</span></li>
-        <li><span class="no-accent">Маскулинизирующая маммопластика при транссексуализме</span></li>
-        <li><span class="no-accent">Пластика груди после мастэктомии</span></li>
-        <li><span class="no-accent">Пластика полового члена (фаллопластика)</span></li>
-        <li><span class="no-accent">Пластика дефектов мягких тканей</span></li>
-        <li><span class="no-accent">Хирургия кисти (удаление олеогранулёмы, устранение контрактуры Дюпюитрена)</span></li>
-        <li><span class="no-accent">Микрохирургическая аутотрансплантация пальцев стопы на кисть</span></li>
-    </ul>
-
-    <div id="light-gallery">
-        @foreach (var item in Model)
-        {
-            <a href="@Url.Content(item.Key)">
-                <img src="@Url.Content(item.Value)"/>
-            </a>
+    <ul id="operations-accordion" class="unordered-list accordion">
+        @{
+            var index = 0;
         }
-    </div>
+
+        @foreach (var operationTitle in Model.OperationTypeTitles)
+        {
+            <li>
+                <button class="btn btn-block btn-outline-success no-accent operation-type"
+                        data-toggle="collapse"
+                        data-target="#light-gallery-@index"
+                        role="button"
+                        aria-expanded="false"
+                        aria-controls="light-gallery-@index">
+                    @operationTitle
+                </button>
+                <div id="light-gallery-@index"
+                     class="collapse light-gallery"
+                     data-parent="#operations-accordion">
+                    @foreach (var item in Model.ImagesAndThumbnails)
+                    {
+                        <a href="@Url.Content(item.Key)">
+                            <img class="gallery-thumbnail" src="@Url.Content(item.Value)"/>
+                        </a>
+                    }
+                </div>
+            </li>
+
+            index++;
+        }
+    </ul>
 </div>
 
 @section Scripts {
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/lib/jquery-lightgallery/js/lightgallery.min.js"></script>
     <script src="~/lib/jquery-lightgallery/js/lg-fullscreen.min.js"></script>
     <script src="~/lib/jquery-lightgallery/js/lg-thumbnail.min.js"></script>
+    <script src="~/lib/jquery-lightgallery/js/lg-hash.min.js"></script>
 
     <script type="text/javascript">
         (function ($) {
             'use strict';
 
             $(document).ready(function () {
-                var $lightGallery = $('#light-gallery').lightGallery({
-                    download: false
-                });
+                var galleriesCount = @Model.OperationTypeTitles.Length;
 
-                $lightGallery.on('onBeforeOpen.lg', function (event) {
-                    $('.page-wrapper.loaded .close-btn', parent.document).hide();
-                });
+                for (var i = 0; i < galleriesCount; i++) {
+                    var $lightGallery = $('#light-gallery-' + i).lightGallery({
+                        galleryId: i,
+                        download: false
+                    });
 
-                $lightGallery.on('onBeforeClose.lg', function (event) {
-                    $('.page-wrapper.loaded .close-btn', parent.document).show('slow');
-                });
+                    $lightGallery.on('onBeforeOpen.lg', function (event) {
+                        $('.page-wrapper.loaded .close-btn', parent.document).hide();
+                    });
+
+                    $lightGallery.on('onBeforeClose.lg', function (event) {
+                        $('.page-wrapper.loaded .close-btn', parent.document).show('slow');
+                    });
+                }
             });
         })(jQuery);
     </script>

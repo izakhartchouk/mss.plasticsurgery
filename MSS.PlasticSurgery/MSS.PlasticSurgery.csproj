@@ -29,4 +29,49 @@
     <Folder Include="wwwroot\lib\jquery-lightgallery\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Update="wwwroot\img\operations-multitypes\000-08.04.2010.jpg">
+      <CopyToPublishDirectory>True</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\img\operations-multitypes\001-24.11.2010.jpg">
+      <CopyToPublishDirectory>True</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\img\operations-multitypes\002-08.04.2011.jpg">
+      <CopyToPublishDirectory>True</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\img\operations-multitypes\005-11.12.2011.jpg">
+      <CopyToPublishDirectory>True</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\img\operations-multitypes\012-23.10.2015.jpg">
+      <CopyToPublishDirectory>True</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\img\operations-multitypes\014-15.03.2016.jpg">
+      <CopyToPublishDirectory>True</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\img\operations-multitypes\020-30.03.2017.jpg">
+      <CopyToPublishDirectory>True</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\img\operations-multitypes\thumbnails\000-08.04.2010.jpg">
+      <CopyToPublishDirectory>True</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\img\operations-multitypes\thumbnails\001-24.11.2010.jpg">
+      <CopyToPublishDirectory>True</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\img\operations-multitypes\thumbnails\002-08.04.2011.jpg">
+      <CopyToPublishDirectory>True</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\img\operations-multitypes\thumbnails\005-11.12.2011.jpg">
+      <CopyToPublishDirectory>True</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\img\operations-multitypes\thumbnails\012-23.10.2015.jpg">
+      <CopyToPublishDirectory>True</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\img\operations-multitypes\thumbnails\014-15.03.2016.jpg">
+      <CopyToPublishDirectory>True</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\img\operations-multitypes\thumbnails\020-30.03.2017.jpg">
+      <CopyToPublishDirectory>True</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
 </Project>
