@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
@@ -20,6 +20,7 @@
 
   <ItemGroup>
     <Content Update="wwwroot\img\operations\**\*.*" CopyToPublishDirectory="Never" />
+    <Content Update="wwwroot\img\operations-multitypes\**\*.*" CopyToPublishDirectory="True" />
     <Content Update="wwwroot\img\certificates\**\*.*" CopyToPublishDirectory="True" />
   </ItemGroup>
 
