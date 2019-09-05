@@ -17,8 +17,8 @@ Perfecto.App = function(e, t) {
             i.resize(), a.resize(), s.resize(), c.resize()
         }), this.setLinks = function(e) {
         a.setLinks(e)
-    }, this.setLogo = function(e, t, n, r) {
-        a.setLogo(e, t, n)
+    }, this.setLogo = function(e, t, n, r, src) {
+        a.setLogo(e, t, n, r, src)
     }
 }, Perfecto.addClassMethods = function(e) {
     e.hasClass = function(t) {
@@ -605,9 +605,29 @@ Perfecto.App = function(e, t) {
                 i.appendChild(o), i.hoverNode = o, i.setAttribute("data-url", r.url), i.addClass("navigation-item")
             }
         }), v.resize()
-    }, this.setLogo = function(e, t, n, r) {
+    }, this.setLogo = function(e, t, n, r, src) {
         if (t = t || "", n = n || "", r = r || "#", y.length > e) {
-            w = Perfecto.createElements([
+            var logoHeaderElement = {};
+
+            if (src) {
+                logoHeaderElement = {
+                    tag: "img",
+                    atts: {
+                        src: src
+                    },
+                    class: "mss-signature",
+                    alias: "imageNode"
+                };
+            } else {
+                logoHeaderElement = {
+                    tag: "div",
+                    class: "logo-title",
+                    text: t,
+                    alias: "logoTitle"
+                };
+            }
+
+            var elementsArray = [
                 {
                     tag: "a",
                     class: "logo-mask hidden",
@@ -618,17 +638,16 @@ Perfecto.App = function(e, t) {
                 [
                     {
                         tag: "div",
-                        class: "logo-title",
-                        text: t,
-                        alias: "logoTitle"
-                    }, {
-                        tag: "div",
                         class: "logo-subtitle",
                         text: n,
                         alias: "logoSubtitle"
                     }
                 ]
-            ]);
+            ];
+
+            elementsArray[1].unshift(logoHeaderElement);
+
+            w = Perfecto.createElements(elementsArray);
             var i = y[e].element;
             i.hasOwnProperty("hoverNode") && i.removeChild(i.hoverNode), i.appendChild(w), i.logoNode = w
         }

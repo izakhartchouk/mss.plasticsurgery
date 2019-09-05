@@ -7,5 +7,7 @@ namespace MSS.PlasticSurgery.Models
         public string[] OperationTypeTitles { get; set; }
 
         public Dictionary<string, string> ImagesAndThumbnails { get; set; }
+
+        public IEnumerable<OperationTypeViewModel> OperationTypes { get; set; }
     }
 }

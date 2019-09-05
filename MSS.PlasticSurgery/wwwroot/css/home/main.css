@@ -144,6 +144,13 @@ iframe {
     margin-left: 17.6%;
 }
 
+.mss-signature {
+    width: 70%;
+    display: block;
+    margin: 0 auto;
+    margin-top: 13%;
+}
+
 .front-renderer {
     position: absolute;
     top: 0;
@@ -408,7 +415,7 @@ iframe {
 
 @media all and (max-width: 450px), all and (max-height: 450px) {
     .scene-item .item-mask .link-text {
-        font-size: 9px;
+        font-size: 7px;
         line-height: 16px;
     }
 

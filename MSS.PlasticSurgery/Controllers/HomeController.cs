@@ -77,8 +77,8 @@ namespace MSS.PlasticSurgery.Controllers
 
         public IActionResult Gallery()
         {
-            var certificatesWebRootPath = _hostingEnvironment.WebRootPath + "\\img\\operations-multitypes";
-            var certificateThumbnailsWebRootPath = _hostingEnvironment.WebRootPath + "\\img\\operations-multitypes\\thumbnails";
+            var certificatesWebRootPath = _hostingEnvironment.WebRootPath + "\\img\\operations-multitypes\\1-breast-augmentation\\sample-1";
+            var certificateThumbnailsWebRootPath = _hostingEnvironment.WebRootPath + "\\img\\operations-multitypes\\1-breast-augmentation\\sample-1\\thumbnails";
             string[] filesArray = Directory.GetFiles(certificatesWebRootPath);
             string[] thumbnailsArray = Directory.GetFiles(certificateThumbnailsWebRootPath);
 
