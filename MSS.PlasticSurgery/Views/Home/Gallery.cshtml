@@ -14,33 +14,41 @@
 <div class="inner-container">
     <ul id="operations-accordion" class="unordered-list accordion">
         @{
-            var index = 0;
+            var operationTypeIndex = 0;
+            var galleryIndex = 0;
         }
 
-        @foreach (var operationTitle in Model.OperationTypeTitles)
+        @foreach (var operationType in Model.OperationTypes)
         {
             <li>
                 <button class="btn btn-block btn-outline-success no-accent operation-type"
                         data-toggle="collapse"
-                        data-target="#light-gallery-@index"
+                        data-target="#operation-samples-@operationTypeIndex"
                         role="button"
                         aria-expanded="false"
-                        aria-controls="light-gallery-@index">
-                    @operationTitle
+                        aria-controls="operation-samples-@operationTypeIndex">
+                    @operationType.Title
                 </button>
-                <div id="light-gallery-@index"
-                     class="collapse light-gallery"
-                     data-parent="#operations-accordion">
-                    @foreach (var item in Model.ImagesAndThumbnails)
+
+                <div id="operation-samples-@operationTypeIndex" class="collapse" data-parent="#operations-accordion">
+                    @foreach (var sample in operationType.Samples)
                     {
-                        <a href="@Url.Content(item.Key)">
-                            <img class="gallery-thumbnail" src="@Url.Content(item.Value)"/>
-                        </a>
+                        <div id="light-gallery-@galleryIndex"
+                             class="light-gallery">
+                            @foreach (var pair in sample)
+                            {
+                                <a href="@Url.Content(pair.Key)">
+                                    <img class="gallery-thumbnail" src="@Url.Content(pair.Value)"/>
+                                </a>
+                            }
+                        </div>
+
+                        galleryIndex++;
                     }
                 </div>
             </li>
 
-            index++;
+            operationTypeIndex++;
         }
     </ul>
 </div>
@@ -58,7 +66,7 @@
             'use strict';
 
             $(document).ready(function () {
-                var galleriesCount = @Model.OperationTypeTitles.Length;
+                var galleriesCount = @galleryIndex + 1;
 
                 for (var i = 0; i < galleriesCount; i++) {
                     var $lightGallery = $('#light-gallery-' + i).lightGallery({

@@ -13,16 +13,13 @@ namespace MSS.PlasticSurgery.Controllers
     public class HomeController : Controller
     {
         private readonly IHostingEnvironment _hostingEnvironment;
-        private readonly IGenericRepository<Operation, int> _operationRepository;
 
         private readonly string[] _operationTypeTitles;
 
         public HomeController(
-            IHostingEnvironment hostingEnvironment,
-            IGenericRepository<Operation, int> operationRepository)
+            IHostingEnvironment hostingEnvironment)
         {
             _hostingEnvironment = hostingEnvironment;
-            _operationRepository = operationRepository;
 
             _operationTypeTitles = new string[]
             {
@@ -60,49 +57,52 @@ namespace MSS.PlasticSurgery.Controllers
             return View();
         }
 
-        public IActionResult PhotoGallery()
-        {
-            var operationViewModels = _operationRepository.GetAll()
-                .Select(x => new OperationViewModel()
-                {
-                    Id = x.Id,
-                    Title = x.Title,
-                    Subtitle = x.Subtitle,
-                    Description = x.Description,
-                    Images = x.Images.Select(y => y.Path)
-                });
-
-            return View(operationViewModels);
-        }
-
         public IActionResult Gallery()
         {
-            var certificatesWebRootPath = _hostingEnvironment.WebRootPath + "\\img\\operations-multitypes\\1-breast-augmentation\\sample-1";
-            var certificateThumbnailsWebRootPath = _hostingEnvironment.WebRootPath + "\\img\\operations-multitypes\\1-breast-augmentation\\sample-1\\thumbnails";
-            string[] filesArray = Directory.GetFiles(certificatesWebRootPath);
-            string[] thumbnailsArray = Directory.GetFiles(certificateThumbnailsWebRootPath);
-
-            var relativePaths = new Dictionary<string, string>();
-            for (int i = 0; i < filesArray.Length; i++)
+            var targetOperationTitles = new string[]
             {
-                var filePath = filesArray[i];
-                var thumbnailPath = thumbnailsArray[i];
+                _operationTypeTitles[0],
+                _operationTypeTitles[9],
+                _operationTypeTitles[14],
+                _operationTypeTitles[15]
+            };
 
-                var relativeThumbnailImagePath = thumbnailPath
-                    .Replace(_hostingEnvironment.WebRootPath, "")
-                    .Replace("\\", "/");
+            var operationsWebRootPath = _hostingEnvironment.WebRootPath + "\\img\\operations-multitypes";
+            var operationDirectories = Directory.GetDirectories(operationsWebRootPath);
+            var directoryOperationTitleMap = operationDirectories
+                .Zip(targetOperationTitles, (path, title) => new { path, title })
+                .ToDictionary(x => x.title, x => x.path);
 
-                var relativeOriginalImagePath = filePath
-                    .Replace(_hostingEnvironment.WebRootPath, "")
-                    .Replace("\\", "/");
+            var result = new List<OperationTypeViewModel>();
+            foreach (var item in directoryOperationTitleMap)
+            {
+                var sampleDirectories = Directory.GetDirectories(item.Value);
+                var samplesDictionary = new List<Dictionary<string, string>>();
 
-                relativePaths.Add(relativeOriginalImagePath, relativeThumbnailImagePath);
+                foreach (var sampleDirectory in sampleDirectories)
+                {
+                    var sampleFiles = Directory.GetFiles(sampleDirectory)
+                        .Select(x => x.Replace(_hostingEnvironment.WebRootPath, ""));
+                    var sampleThumbnails = Directory.GetFiles(sampleDirectory + "\\thumbnails")
+                        .Select(x => x.Replace(_hostingEnvironment.WebRootPath, ""));
+
+                    var sampleDictionary = sampleFiles
+                        .Zip(sampleThumbnails, (image, thumbnail) => new { image, thumbnail })
+                        .ToDictionary(x => x.image, x => x.thumbnail);
+
+                    samplesDictionary.Add(sampleDictionary);
+                }
+
+                result.Add(new OperationTypeViewModel()
+                {
+                    Title = item.Key,
+                    Samples = samplesDictionary
+                });
             }
 
             var viewModel = new GalleryViewModel()
             {
-                OperationTypeTitles = _operationTypeTitles,
-                ImagesAndThumbnails = relativePaths
+                OperationTypes = result
             };
 
             return View(viewModel);
