@@ -16,9 +16,9 @@ namespace MSS.PlasticSurgery.Utilities
             var fileExtension = Path.GetExtension(file.FileName);
             var randomFileName = Path.GetRandomFileName();
             randomFileName = Path.ChangeExtension(randomFileName, fileExtension);
-            relativeFilePath = $"/img/operations/{randomFileName}";
+            relativeFilePath = $"/images/operations/{randomFileName}";
 
-            return Path.Combine(hostingEnvironment.WebRootPath, "img\\operations", randomFileName);
+            return Path.Combine(hostingEnvironment.WebRootPath, "images\\operations", randomFileName);
         }
     }
 }

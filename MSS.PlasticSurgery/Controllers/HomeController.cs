@@ -67,7 +67,7 @@ namespace MSS.PlasticSurgery.Controllers
                 _operationTypeTitles[15]
             };
 
-            var operationsWebRootPath = _hostingEnvironment.WebRootPath + "\\img\\operations-multitypes";
+            var operationsWebRootPath = _hostingEnvironment.WebRootPath + "\\images\\operations-multitypes";
             var operationDirectories = Directory.GetDirectories(operationsWebRootPath);
             var directoryOperationTitleMap = operationDirectories
                 .Zip(targetOperationTitles, (path, title) => new { path, title })
@@ -130,8 +130,8 @@ namespace MSS.PlasticSurgery.Controllers
 
         public IActionResult Certificates()
         {
-            var certificatesWebRootPath = _hostingEnvironment.WebRootPath + "\\img\\certificates";
-            var certificateThumbnailsWebRootPath = _hostingEnvironment.WebRootPath + "\\img\\certificates\\thumbnails";
+            var certificatesWebRootPath = _hostingEnvironment.WebRootPath + "\\images\\certificates";
+            var certificateThumbnailsWebRootPath = _hostingEnvironment.WebRootPath + "\\images\\certificates\\thumbnails";
             string[] filesArray = Directory.GetFiles(certificatesWebRootPath);
             string[] thumbnailsArray = Directory.GetFiles(certificateThumbnailsWebRootPath);
 

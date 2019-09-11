@@ -222,7 +222,7 @@ input[type="submit"].btn { -webkit-appearance: none; }
 
 .testimonial > p {
     text-indent: 21px;
-    background-image: url("../img/quotes.png");
+    background-image: url("../images/quotes.png");
     background-position: 0 5px;
     background-repeat: no-repeat;
     overflow: hidden;
@@ -294,13 +294,13 @@ input[type="submit"].btn { -webkit-appearance: none; }
 }
 
 .carousel .carousel-control.left {
-    background-image: url("../../img/nav-left.png");
+    background-image: url("../../images/nav-left.png");
     left: -webkit-calc(50% - 38px);
     left: calc(50% - 38px);
 }
 
 .carousel .carousel-control.right {
-    background-image: url("../../img/nav-right.png");
+    background-image: url("../../images/nav-right.png");
     left: -webkit-calc(50% + 5px);
     left: calc(50% + 5px);
 }

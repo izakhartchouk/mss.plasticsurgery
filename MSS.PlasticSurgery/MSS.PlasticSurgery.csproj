@@ -19,14 +19,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Update="wwwroot\img\operations\**\*.*" CopyToPublishDirectory="Never" />
-    <Content Update="wwwroot\img\operations-multitypes\**\*.*" CopyToPublishDirectory="True" />
-    <Content Update="wwwroot\img\certificates\**\*.*" CopyToPublishDirectory="True" />
+    <Content Update="wwwroot\images\operations\**\*.*" CopyToPublishDirectory="Never" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\img\certificates\thumbnails\" />
-    <Folder Include="wwwroot\img\avatars\" />
     <Folder Include="wwwroot\lib\jquery-lightgallery\" />
   </ItemGroup>
 
