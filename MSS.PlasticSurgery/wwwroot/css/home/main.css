@@ -102,7 +102,6 @@ iframe {
     display: block;
     font-family: 'Montserrat', sans-serif;
     font-weight: bold;
-    background-color: #6ae694;
     color: white;
     width: 100%;
     height: 100%;
@@ -139,16 +138,15 @@ iframe {
     font-family: 'Montserrat', sans-serif;
     font-weight: bold;
     letter-spacing: 1px;
-    text-transform: uppercase;
     margin-top: 8px;
     margin-left: 17.6%;
 }
 
 .mss-signature {
-    width: 70%;
+    width: 85%;
     display: block;
     margin: 0 auto;
-    margin-top: 13%;
+    margin-top: 25%;
 }
 
 .front-renderer {
@@ -426,7 +424,7 @@ iframe {
     }
 
     .logo-mask .logo-subtitle {
-        font-size: 9px;
+        font-size: 6px;
         line-height: 10px;
         margin-right: 10px;
     }
@@ -477,7 +475,7 @@ iframe {
     }
 
     .logo-mask .logo-subtitle {
-        font-size: 8px;
+        font-size: 5px;
         line-height: 8px;
         margin-top: 1px;
         margin-right: 10px;
