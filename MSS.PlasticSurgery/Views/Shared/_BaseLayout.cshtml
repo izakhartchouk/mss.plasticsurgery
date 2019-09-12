@@ -7,13 +7,13 @@
 
     <environment names="Development">
         <link rel="stylesheet" href="@Url.Content("~/lib/font-awesome/font-awesome.min.css")" />
-        <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Open+Sans:300,400,600,700&amp;lang=en" />
+        <link rel="stylesheet" href="@Url.Content("~/css/font-faces/open-sans.css")" />
         <link rel="stylesheet" href="@Url.Content("~/css/home/main.css")" />
     </environment>
 
     <environment names="Production">
-        <link rel="stylesheet" href="@Url.Content("~/lib/font-awesome/font-awesome.min.css")" asp-append-version="true"/>
-        <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Open+Sans:300,400,600,700&amp;lang=en" asp-append-version="true"/>
+        <link rel="stylesheet" href="@Url.Content("~/lib/font-awesome/font-awesome.min.css")" asp-append-version="true" />
+        <link rel="stylesheet" href="@Url.Content("~/css/font-faces/open-sans.css")" />
         <link rel="stylesheet" href="@Url.Content("~/css/home/main.css")" asp-append-version="true" />
         @*<link rel="stylesheet" href="~/view-resources/Views/_Bundles/layout-libs.min.css" asp-append-version="true" />*@
     </environment>

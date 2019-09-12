@@ -1,4 +1,5 @@
-@import url(https://fonts.googleapis.com/css?family=PT+Sans|Montserrat);
+@import url(../font-faces/pt-sans.css);
+@import url(../font-faces/montserrat.css);
 
 a { outline: none; }
 
