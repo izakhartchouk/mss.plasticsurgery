@@ -137,7 +137,6 @@ iframe {
     line-height: 16px;
     font-family: 'Montserrat', sans-serif;
     font-weight: bold;
-    letter-spacing: 1px;
     margin-top: 8px;
     margin-left: 17.6%;
 }
@@ -324,7 +323,6 @@ iframe {
     .logo-mask .logo-subtitle {
         font-size: 10px;
         line-height: 16px;
-        letter-spacing: 1px;
     }
 }
 
@@ -351,7 +349,6 @@ iframe {
     .logo-mask .logo-subtitle {
         font-size: 10px;
         line-height: 16px;
-        letter-spacing: 1px;
     }
 }
 
