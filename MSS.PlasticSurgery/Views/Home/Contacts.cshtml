@@ -4,50 +4,38 @@
 }
 
 <div class="inner-container">
-    <h3 class="smaller">Our Location</h3>
-    <div class="grid">
-        <div class="col-1-2">
-            <ul class="no-marks">
-                <li class="strong">Perfecto</li>
-                <li class="address">8901 Marmora Road,</li>
-                <li class="address">Glasgow, D04 89GR</li>
-                <li>E-mail: <a href="mailto:perfecto@demolink.org">perfecto@demolink.org</a></li>
-            </ul>
-        </div>
-        <div class="col-1-2">
-            <table>
-                <tbody>
-                    <tr>
-                        <td>Freephone:</td>
-                        <td><a href="tel:+18005596580">+1 800 559 6580</a></td>
-                    </tr>
-                    <tr>
-                        <td>Telephone:</td>
-                        <td><a href="tel:+19596036035">+1 959 603 6035</a></td>
-                    </tr>
-                    <tr>
-                        <td>FAX:</td>
-                        <td><a href="tel:+15048899898">+1 504 889 9898</a></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div><!-- End of .grid -->
+    <h3 class="smaller">Мои Контакты</h3>
+
+    <p>
+        Консультативный приём ведётся с понедельника по субботу.
+    </p>
+
+    <ul class="unordered-list accent">
+        <li><span class="no-accent">Понедельник - пятница - УЗ МОКБ, Минская обл., а. г. Лесной, с 08.00 до 09.30.</span></li>
+        <li><span class="no-accent">Вторник - МЦ Эдаран, г. Минск, ул. Ленина, 9, с 18.00 до 19.00</span></li>
+        <li><span class="no-accent">Среда - МЦ Конфиденс, г. Минск, ул. Притыцкого, 39, с 18.00 до 20.00.</span></li>
+        <li><span class="no-accent">Четверг- МЦ Эдаран, г. Минск, ул. Ленина, 9 с 18.00 до 19.00.</span></li>
+        <li><span class="no-accent">Суббота - МЦ Конфиденс, г. Минск, ул, Притыцкого, 39, с 14.00 до 17.00.</span></li>
+    </ul>
+
+    <p>
+        Кроме того, все интересующие Вас вопросы пишите на e-mail <a href="mailto:mechkovskiss@gmail.com">mechkovskiss@gmail.com</a> или воспользуйтесь формой ниже, готов ответить с 9.00 до 19.00 по минскому времени.
+    </p>
 
     <hr />
 
-    <h3>Contact Form</h3>
+    <h3>Контактная Форма</h3>
     <form data-form-output="form-output-global" data-form-type="contact" method="post" action="~/bat/rd-mailform.php" class="rd-mailform">
         <div class="form-group">
-            <input id="contact-name" type="text" name="name" data-constraints="@@Required" class="form-control" placeholder="your name *" />
+            <input id="contact-name" type="text" name="name" data-constraints="@@Required" class="form-control" placeholder="ФИО *" />
         </div>
 
         <div class="form-group">
-            <input id="contact-email" type="email" name="email" data-constraints="@@Email @@Required" class="form-control" placeholder="your email *" />
+            <input id="contact-email" type="email" name="email" data-constraints="@@Email @@Required" class="form-control" placeholder="Email *" />
         </div>
 
         <div class="form-group">
-            <textarea id="contact-message" name="message" data-constraints="@@Required" class="form-control" placeholder="your message *"></textarea>
+            <textarea id="contact-message" name="message" data-constraints="@@Required" class="form-control" placeholder="Сообщение *"></textarea>
         </div>
 
         <div class="centered">

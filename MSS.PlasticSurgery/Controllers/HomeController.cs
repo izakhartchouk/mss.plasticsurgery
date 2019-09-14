@@ -136,7 +136,7 @@ namespace MSS.PlasticSurgery.Controllers
             return View();
         }
 
-        public IActionResult OurStaff()
+        public IActionResult Сomments()
         {
             return View();
         }
