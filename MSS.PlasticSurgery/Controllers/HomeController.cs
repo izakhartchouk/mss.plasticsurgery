@@ -5,8 +5,6 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
-using MSS.PlasticSurgery.DataAccess.Entities;
-using MSS.PlasticSurgery.DataAccess.Repositories.Interfaces;
 using MSS.PlasticSurgery.Models;
 
 namespace MSS.PlasticSurgery.Controllers
@@ -46,7 +44,8 @@ namespace MSS.PlasticSurgery.Controllers
                 new KeyValuePair<int, string>(18, "Пластика полового члена (фаллопластика)"),
                 new KeyValuePair<int, string>(19, "Пластика дефектов мягких тканей"),
                 new KeyValuePair<int, string>(20, "Хирургия кисти (удаление олеогранулёмы, устранение контрактуры Дюпюитрена)"),
-                new KeyValuePair<int, string>(21, "Микрохирургическая аутотрансплантация пальцев стопы на кисть")
+                new KeyValuePair<int, string>(21, "Микрохирургическая аутотрансплантация пальцев стопы на кисть"),
+                new KeyValuePair<int, string>(22, "Пластика малых половых губ (лабиопластика)")
             };
         }
 
