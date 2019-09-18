@@ -10,6 +10,8 @@ using Microsoft.Extensions.DependencyInjection;
 using MSS.PlasticSurgery.DataAccess.EntityFrameworkCore;
 using MSS.PlasticSurgery.DataAccess.Repositories;
 using MSS.PlasticSurgery.DataAccess.Repositories.Interfaces;
+using MSS.PlasticSurgery.Services;
+using MSS.PlasticSurgery.Services.Models;
 
 namespace MSS.PlasticSurgery
 {
@@ -81,6 +83,23 @@ namespace MSS.PlasticSurgery
             {
                 options.AddPolicy("AdminPolicy", policy => policy.RequireRole("Admin"));
             });
+
+            var config = new EmailServerConfiguration
+            {
+                SmtpPassword = "ywmpxtkcdwyydukl",
+                SmtpServer = "smtp.gmail.com",
+                SmtpUsername = "ivannn787@gmail.com"
+            };
+
+            var ToEmailAddress = new EmailAddress
+            {
+                Address = "ivannn787@gmail.com",
+                Name = "IZ"
+            };
+
+            services.AddSingleton<EmailServerConfiguration>(config);
+            services.AddSingleton<EmailAddress>(ToEmailAddress);
+            services.AddTransient<IEmailService, MailKitEmailService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

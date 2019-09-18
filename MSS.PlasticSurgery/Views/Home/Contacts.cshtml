@@ -3,6 +3,9 @@
     ViewData["Title"] = "Contacts";
 }
 
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model ContactViewModel
+
 <div class="inner-container">
     <h3 class="smaller">Контакты</h3>
 
@@ -25,17 +28,17 @@
     <hr />
 
     <h3>Контактная Форма</h3>
-    <form data-form-output="form-output-global" data-form-type="contact" method="post" action="~/bat/rd-mailform.php" class="rd-mailform">
+    <form method="post" asp-action="Contacts" asp-controller="Home" class="rd-mailform">
         <div class="form-group">
-            <input id="contact-name" type="text" name="name" data-constraints="@@Required" class="form-control" placeholder="ФИО *" />
+            <input id="contact-name" asp-for="Name" type="text" name="name" data-constraints="@@Required" class="form-control" placeholder="ФИО *" />
         </div>
 
         <div class="form-group">
-            <input id="contact-email" type="email" name="email" data-constraints="@@Email @@Required" class="form-control" placeholder="Email *" />
+            <input id="contact-email" asp-for="Email" type="email" name="email" data-constraints="@@Email @@Required" class="form-control" placeholder="Email *" />
         </div>
 
         <div class="form-group">
-            <textarea id="contact-message" name="message" data-constraints="@@Required" class="form-control" placeholder="Сообщение *"></textarea>
+            <textarea id="contact-message" asp-for="Message" name="message" data-constraints="@@Required" class="form-control" placeholder="Сообщение *"></textarea>
         </div>
 
         <div class="centered">

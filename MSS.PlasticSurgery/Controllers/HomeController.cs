@@ -3,24 +3,33 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using MSS.PlasticSurgery.Models;
+using MSS.PlasticSurgery.Services;
+using MSS.PlasticSurgery.Services.Models;
 
 namespace MSS.PlasticSurgery.Controllers
 {
     public class HomeController : Controller
     {
         private readonly IHostingEnvironment _hostingEnvironment;
+        private readonly IEmailService _emailService;
+        private readonly EmailAddress _toEmailAddress;
 
         private readonly List<KeyValuePair<int, string>> _operationTypeTitles;
 
         private const string FileExtensionsRegex = ".jpg|.png|.bmp";
 
         public HomeController(
-            IHostingEnvironment hostingEnvironment)
+            IHostingEnvironment hostingEnvironment,
+            IEmailService emailService,
+            EmailAddress toEmailAddress)
         {
             _hostingEnvironment = hostingEnvironment;
+            _emailService = emailService;
+            _toEmailAddress = toEmailAddress;
 
             _operationTypeTitles = new List<KeyValuePair<int, string>>()
             {
@@ -123,6 +132,37 @@ namespace MSS.PlasticSurgery.Controllers
         public IActionResult Contacts()
         {
             return View();
+        }
+
+        [HttpPost]
+        public IActionResult Contacts(ContactViewModel contactViewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                var msgToSend = new EmailMessage
+                {
+                    FromAddresses = new List<EmailAddress>
+                    {
+                        new EmailAddress
+                        {
+                            Name = contactViewModel.Name,
+                            Address = contactViewModel.Email
+                        }
+                    },
+                    ToAddresses = new List<EmailAddress> { _toEmailAddress },
+                    Content = $"Here is your message: Name: {contactViewModel.Name}, " +
+                        $"Email: {contactViewModel.Email}, Message: {contactViewModel.Message}",
+                    Subject = "Contact Form - BasicContactForm App"
+                };
+
+                _emailService.SendAsync(msgToSend);
+
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return Index();
+            }
         }
 
         public IActionResult BeforeOperation()
