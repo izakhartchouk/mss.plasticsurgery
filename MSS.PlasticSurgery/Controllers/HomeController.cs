@@ -135,7 +135,7 @@ namespace MSS.PlasticSurgery.Controllers
         }
 
         [HttpPost]
-        public IActionResult Contacts(ContactViewModel contactViewModel)
+        public async Task<IActionResult> Contacts([FromBody] ContactViewModel contactViewModel)
         {
             if (ModelState.IsValid)
             {
@@ -150,18 +150,18 @@ namespace MSS.PlasticSurgery.Controllers
                         }
                     },
                     ToAddresses = new List<EmailAddress> { _toEmailAddress },
-                    Content = $"Here is your message: Name: {contactViewModel.Name}, " +
-                        $"Email: {contactViewModel.Email}, Message: {contactViewModel.Message}",
-                    Subject = "Contact Form - BasicContactForm App"
+                    Content = $"Сообщение от '{contactViewModel.Name}', " +
+                        $"Email: {contactViewModel.Email}, Текст сообщения: {contactViewModel.Message}",
+                    Subject = "Обращение с MSSSURGEON.COM"
                 };
 
-                _emailService.SendAsync(msgToSend);
+                await _emailService.SendAsync(msgToSend);
 
-                return RedirectToAction("Index");
+                return Json("success");
             }
             else
             {
-                return Index();
+                return Json("fail");
             }
         }
 

@@ -5,6 +5,6 @@ namespace MSS.PlasticSurgery.Services
 {
     public interface IEmailService
     {
-        void SendAsync(EmailMessage message);
+        Task SendAsync(EmailMessage message);
     }
 }

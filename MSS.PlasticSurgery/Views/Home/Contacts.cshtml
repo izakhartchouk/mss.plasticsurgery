@@ -6,6 +6,11 @@
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @model ContactViewModel
 
+@section Styles {
+    <link type="text/css" rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css">
+    <link type="text/css" rel="stylesheet" href="~/css/home/contacts.css">
+}
+
 <div class="inner-container">
     <h3 class="smaller">Контакты</h3>
 
@@ -14,11 +19,11 @@
     </p>
 
     <ul class="unordered-list accent">
-        <li><span class="no-accent">Понедельник - пятница - УЗ МОКБ, Минская обл., а. г. Лесной, с 08.30 до 09.00.</span></li>
+        <li><span class="no-accent">Понедельник - пятница - УЗ МОКБ, Минская обл., а. г. Лесной, с 08.30 до 09.30.</span></li>
         <li><span class="no-accent">Вторник - МЦ "Эдаран", г. Минск, ул. Ленина, 9, с 18.00 до 19.00</span></li>
         <li><span class="no-accent">Среда - МЦ "Конфиденс", г. Минск, ул. Притыцкого, 39, с 18.00 до 20.00.</span></li>
         <li><span class="no-accent">Четверг- МЦ "Эдаран", г. Минск, ул. Ленина, 9 с 18.00 до 19.00.</span></li>
-        <li><span class="no-accent">Суббота - МЦ "Конфиденс", г. Минск, ул, Притыцкого, 39, с 14.00 до 17.00.</span></li>
+        <li><span class="no-accent">Суббота - МЦ "Конфиденс", г. Минск, ул. Притыцкого, 39, с 14.00 до 17.00.</span></li>
     </ul>
 
     <p>
@@ -28,7 +33,7 @@
     <hr />
 
     <h3>Контактная Форма</h3>
-    <form method="post" asp-action="Contacts" asp-controller="Home" class="rd-mailform">
+    <form id="contact-form" class="rd-mailform">
         <div class="form-group">
             <input id="contact-name" asp-for="Name" type="text" name="name" data-constraints="@@Required" class="form-control" placeholder="ФИО *" />
         </div>
@@ -41,15 +46,26 @@
             <textarea id="contact-message" asp-for="Message" name="message" data-constraints="@@Required" class="form-control" placeholder="Сообщение *"></textarea>
         </div>
 
+        <div id="send-success-alert" class="alert alert-success fade show" role="alert" style="display: none;">
+            Сообщение успешно отправлено!
+            <button id="send-success-alert-close-button" type="button" class="close" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+
         <div class="centered">
-            <input class="btn btn-primary" type="submit" value="Send" />
+            <button id="submit-contact-form" class="btn btn-success" type="button">
+                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" style="display: none;"></span>
+                <span class="submit-text">Отправить</span>
+            </button>
         </div>
     </form>
 </div><!-- End of .container -->
 
-<div id="form-output-global"></div>
-
 @section Scripts {
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/forms/forms.min.js"></script>
+    <script src="@Url.Content("~/lib/jquery/dist/jquery.js")" asp-append-version="true"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js" asp-append-version="true"></script>
+    <script src="@Url.Content("~/js/utils/utils.js")" asp-append-version="true"></script>
+
+    <script type="text/javascript" src="~/js/home/contacts.js"></script>
 }

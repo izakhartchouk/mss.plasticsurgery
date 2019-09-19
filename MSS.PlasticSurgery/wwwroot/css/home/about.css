@@ -19,10 +19,16 @@ img {
     margin: 0 auto;
 }
 
+.self-words {
+    text-align: left;
+}
+
 .section-title {
     margin-top: 13px;
     font-weight: normal;
     font-family: 'PT Sans', sans-serif;
+    text-transform: none;
+    letter-spacing: normal;
 }
 
 @media all and (max-width: 768px) {

@@ -15,7 +15,7 @@ namespace MSS.PlasticSurgery.Services
             _eConfig = config;
         }
 
-        public void SendAsync(EmailMessage msg)
+        public async Task SendAsync(EmailMessage msg)
         {
             var message = new MimeMessage();
             message.To.AddRange(msg.ToAddresses.Select(x => new MailboxAddress(x.Name, x.Address)));
@@ -25,16 +25,17 @@ namespace MSS.PlasticSurgery.Services
             {
                 Text = msg.Content
             };
+
             try
             { 
                 using (var client = new MailKit.Net.Smtp.SmtpClient())
                 {
-                    client.Connect(_eConfig.SmtpServer, 465, true);
+                    await client.ConnectAsync(_eConfig.SmtpServer, 465, true);
 
-                    client.Authenticate(_eConfig.SmtpUsername, _eConfig.SmtpPassword);
+                    await client.AuthenticateAsync(_eConfig.SmtpUsername, _eConfig.SmtpPassword);
 
-                    client.Send(message);
-                    client.Disconnect(true);
+                    await client.SendAsync(message);
+                    await client.DisconnectAsync(true);
                 }
             }
             catch (Exception ex)
