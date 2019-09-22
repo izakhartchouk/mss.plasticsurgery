@@ -3,7 +3,12 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>@ViewData["Title"] - МСС</title>
+    <meta name="google-site-verification" content="phhIYoFuN-kfA_379kTwosxFxXTxhuzvRzMtz0DcB5A" />
+    <meta name="yandex-verification" content="9f8267e2bfa3cd33" />
+    <meta name="description" content="Увеличение груди (аугментационная маммопластика), Подтяжка груди (мастопексия), Уменьшение груди (редукционная маммопластика), Пластика век (блефаропластика), Пластика передней брюшной стенки (абдоминопластика), Пластика ушных раковин (отопластика), Увеличение голеней (круропластика)" />
+    <meta name="keywords" content="хирург, пластика, Мечковский Сергей Сергеевич, увеличение груди, подтяжка груди, уменьшение груди">
+
+    <title>Мечковский Сергей Сергеевич - @ViewData["Title"]</title>
 
     <environment names="Development">
         <link rel="stylesheet" href="@Url.Content("~/lib/font-awesome/font-awesome.min.css")" />
@@ -19,7 +24,10 @@
     </environment>
 </head>
 <body>
-    <div style="font-family: cursive;position: absolute;font-size: 20px;">Environment: @(Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "Release")</div>
+    @if(Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") != "Production")
+    {
+        <div style="font-family: cursive;position: absolute;font-size: 20px;">Environment: @(Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT"))</div>
+    }
 
     @RenderBody()
 
