@@ -27,10 +27,10 @@ namespace MSS.PlasticSurgery.Services
             };
 
             try
-            { 
+            {
                 using (var client = new MailKit.Net.Smtp.SmtpClient())
                 {
-                    await client.ConnectAsync(_eConfig.SmtpServer, 465, true);
+                    await client.ConnectAsync(_eConfig.SmtpServer, _eConfig.SmtpPort, true);
 
                     await client.AuthenticateAsync(_eConfig.SmtpUsername, _eConfig.SmtpPassword);
 

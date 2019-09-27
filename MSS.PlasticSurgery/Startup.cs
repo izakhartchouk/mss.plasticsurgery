@@ -86,15 +86,16 @@ namespace MSS.PlasticSurgery
 
             var config = new EmailServerConfiguration
             {
-                SmtpPassword = "ywmpxtkcdwyydukl",
+                SmtpPassword = "nrifraegjxbkwydx",
                 SmtpServer = "smtp.gmail.com",
-                SmtpUsername = "ivannn787@gmail.com"
+                SmtpPort = 465,
+                SmtpUsername = "mechkovskiss@gmail.com"
             };
 
             var ToEmailAddress = new EmailAddress
             {
-                Address = "ivannn787@gmail.com",
-                Name = "IZ"
+                Address = "mechkovskiss@gmail.com",
+                Name = "MSS"
             };
 
             services.AddSingleton<EmailServerConfiguration>(config);
